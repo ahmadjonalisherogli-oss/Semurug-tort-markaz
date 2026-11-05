@@ -1,0 +1,515 @@
+import { DatabaseSchema } from '../src/types.js';
+
+export const initialDatabase: DatabaseSchema = {
+  categories: [
+    {
+      id: 'cat_birthday',
+      name: 'Birthday Cakes',
+      slug: 'birthday-cakes',
+      description: 'Artisanal celebration cakes with handcrafted edible blossoms, spun gold crowns, and macarons.',
+      image: '/src/assets/images/birthday_cake_artisan_1793864721039.jpg',
+      display_order: 1
+    },
+    {
+      id: 'cat_wedding',
+      name: 'Wedding Cakes',
+      slug: 'wedding-cakes',
+      description: 'Multi-tiered architectural masterpieces adorned with sugar blossoms and delicate gold leaf.',
+      image: '/src/assets/images/wedding_cake_tiered_1793864721265.jpg',
+      display_order: 2
+    },
+    {
+      id: 'cat_chocolate',
+      name: 'Chocolate Cakes',
+      slug: 'chocolate-cakes',
+      description: 'Grand cru Valrhona chocolate ganache, mirror glazes, and single-origin cocoa crunches.',
+      image: '/src/assets/images/chocolate_truffle_cake_1793864721562.jpg',
+      display_order: 3
+    },
+    {
+      id: 'cat_fruit',
+      name: 'Fruit Cakes',
+      slug: 'fruit-cakes',
+      description: 'Sun-ripened orchard berries, passionfruit curd, and light whipped mascarpone cream.',
+      image: '/src/assets/images/fruit_tart_cake_1793864721977.jpg',
+      display_order: 4
+    },
+    {
+      id: 'cat_cream',
+      name: 'Cream Cakes',
+      slug: 'cream-cakes',
+      description: 'Velvety Swiss meringue buttercreams, fresh Tahitian vanilla bean, and delicate sponge layers.',
+      image: '/src/assets/images/hero_signature_cake_1793864720413.jpg',
+      display_order: 5
+    },
+    {
+      id: 'cat_custom',
+      name: 'Custom Cakes',
+      slug: 'custom-cakes',
+      description: 'Bespoke cakes tailored to your unique palette, theme, flavors, and artistic vision.',
+      image: '/src/assets/images/birthday_cake_artisan_1793864721039.jpg',
+      display_order: 6
+    },
+    {
+      id: 'cat_children',
+      name: "Children's Cakes",
+      slug: 'childrens-cakes',
+      description: 'Whimsical pastel dreamscapes, playful fondant characters, and natural organic flavors.',
+      image: '/src/assets/images/fruit_tart_cake_1793864721977.jpg',
+      display_order: 7
+    },
+    {
+      id: 'cat_special',
+      name: 'Special Occasion Cakes',
+      slug: 'special-occasion-cakes',
+      description: 'Anniversary, corporate milestones, and luxury gala centerpieces crafted to inspire.',
+      image: '/src/assets/images/wedding_cake_tiered_1793864721265.jpg',
+      display_order: 8
+    }
+  ],
+  products: [
+    {
+      id: 'prod_royal_crown',
+      name: 'The Imperial Vanilla & Macaron Crown',
+      slug: 'imperial-vanilla-macaron-crown',
+      description: 'A two-tiered artisanal masterpiece infused with Madagascar bourbon vanilla bean, layered with wild raspberry compote, wrapped in silky Swiss buttercream, and crowned with hand-spun spun-sugar and pistachio macarons.',
+      category: 'Birthday Cakes',
+      category_slug: 'birthday-cakes',
+      price: 89,
+      weight_grams: 1400,
+      available: true,
+      pre_order_available: true,
+      preparation_time_hours: 12,
+      featured: true,
+      best_seller: true,
+      is_new: false,
+      images: [
+        '/src/assets/images/birthday_cake_artisan_1793864721039.jpg',
+        '/src/assets/images/hero_signature_cake_1793864720413.jpg'
+      ],
+      ingredients: [
+        'Madagascar Bourbon Vanilla',
+        'Normandy Cultured Butter',
+        'Organic Free-Range Eggs',
+        'Handmade Almond Macarons',
+        'Raspberry Confiture',
+        'Unrefined Cane Sugar'
+      ],
+      sizes: [
+        { label: 'Classic (6-8 Servings)', weight_grams: 1400, price: 89 },
+        { label: 'Grand (10-14 Servings)', weight_grams: 2200, price: 135 },
+        { label: 'Royal Tier (18-22 Servings)', weight_grams: 3500, price: 210 }
+      ],
+      rating: 4.95,
+      review_count: 38,
+      sales_count: 142,
+      created_at: '2026-01-15T10:00:00.000Z'
+    },
+    {
+      id: 'prod_opera_ganache',
+      name: 'Nocturne Valrhona Mirror Truffle',
+      slug: 'nocturne-valrhona-mirror-truffle',
+      description: 'Intense 72% dark Venezuelan cocoa mousse, roasted hazelnut feuilletine crunch, flourless sponge, and an immaculate obsidian chocolate mirror glaze finished with hand-shaved cocoa curls.',
+      category: 'Chocolate Cakes',
+      category_slug: 'chocolate-cakes',
+      price: 78,
+      weight_grams: 1100,
+      available: true,
+      pre_order_available: true,
+      preparation_time_hours: 6,
+      featured: true,
+      best_seller: true,
+      is_new: false,
+      images: [
+        '/src/assets/images/chocolate_truffle_cake_1793864721562.jpg',
+        '/src/assets/images/hero_signature_cake_1793864720413.jpg'
+      ],
+      ingredients: [
+        '72% Valrhona Dark Chocolate',
+        'Piedmont Hazelnut Praline',
+        'Fresh Dairy Cream 38%',
+        'Single Origin Cocoa Nibs',
+        'Madagascar Vanilla'
+      ],
+      sizes: [
+        { label: 'Standard (6 Servings)', weight_grams: 1100, price: 78 },
+        { label: 'Large (10-12 Servings)', weight_grams: 1900, price: 125 }
+      ],
+      rating: 4.98,
+      review_count: 52,
+      sales_count: 189,
+      created_at: '2026-01-18T12:00:00.000Z'
+    },
+    {
+      id: 'prod_celestial_wedding',
+      name: 'Celestial Ivory Blossom Wedding Tier',
+      slug: 'celestial-ivory-blossom-wedding-tier',
+      description: 'A breathtaking four-tier grand wedding showpiece. Stone-textured ivory fondant with an organic cascade of handcrafted sugar blossoms, edible 24-karat gold accents, and champagne-infused sponge with passionfruit curd.',
+      category: 'Wedding Cakes',
+      category_slug: 'wedding-cakes',
+      price: 360,
+      weight_grams: 4800,
+      available: true,
+      pre_order_available: true,
+      preparation_time_hours: 48,
+      featured: true,
+      best_seller: false,
+      is_new: true,
+      images: [
+        '/src/assets/images/wedding_cake_tiered_1793864721265.jpg',
+        '/src/assets/images/birthday_cake_artisan_1793864721039.jpg'
+      ],
+      ingredients: [
+        'Vintage Brut Champagne',
+        'Exotic Passionfruit Puree',
+        'Organic Almond Sponge',
+        'White Chocolate Ganache 34%',
+        'Hand-sculpted Sugar Hydrangeas',
+        'Edible 24K Gold Leaf'
+      ],
+      sizes: [
+        { label: '3-Tier (40-50 Guests)', weight_grams: 4800, price: 360 },
+        { label: '4-Tier (80-100 Guests)', weight_grams: 8500, price: 620 }
+      ],
+      rating: 5.0,
+      review_count: 19,
+      sales_count: 34,
+      created_at: '2026-02-01T08:00:00.000Z'
+    },
+    {
+      id: 'prod_passion_berry',
+      name: 'Soleil Passionfruit & Wild Berry Naked Tier',
+      slug: 'soleil-passionfruit-wild-berry-naked-tier',
+      description: 'Lush golden passionfruit drizzle cascading over semi-naked buttermilk sponge, packed with plump wild raspberries, blackberries, passionfruit halves, and micro-edible blooms.',
+      category: 'Fruit Cakes',
+      category_slug: 'fruit-cakes',
+      price: 74,
+      weight_grams: 1350,
+      available: true,
+      pre_order_available: true,
+      preparation_time_hours: 8,
+      featured: true,
+      best_seller: true,
+      is_new: false,
+      images: [
+        '/src/assets/images/fruit_tart_cake_1793864721977.jpg',
+        '/src/assets/images/hero_signature_cake_1793864720413.jpg'
+      ],
+      ingredients: [
+        'Fresh Ecuadorian Passionfruit',
+        'Alpine Wild Blueberries & Raspberries',
+        'Light Cream Cheese Chantilly',
+        'Buttermilk Sponge',
+        'Fresh Mint and 24K Flakes'
+      ],
+      sizes: [
+        { label: 'Boutique (6 Servings)', weight_grams: 1350, price: 74 },
+        { label: 'Feast (12 Servings)', weight_grams: 2400, price: 118 }
+      ],
+      rating: 4.92,
+      review_count: 27,
+      sales_count: 115,
+      created_at: '2026-02-10T14:00:00.000Z'
+    },
+    {
+      id: 'prod_signature_velvet',
+      name: 'Semurug Signature Double Velvet Truffle',
+      slug: 'semurug-signature-double-velvet-truffle',
+      description: 'Our iconic flagship cake: two tiers of moist Dutch cocoa sponge frosted with cloud-like whipped dark ganache, laden with fresh blackberries, golden raspberries, and edible gold leafing.',
+      category: 'Special Occasion Cakes',
+      category_slug: 'special-occasion-cakes',
+      price: 96,
+      weight_grams: 1800,
+      available: true,
+      pre_order_available: true,
+      preparation_time_hours: 10,
+      featured: true,
+      best_seller: true,
+      is_new: false,
+      images: [
+        '/src/assets/images/hero_signature_cake_1793864720413.jpg',
+        '/src/assets/images/chocolate_truffle_cake_1793864721562.jpg'
+      ],
+      ingredients: [
+        'Dutch Processed Cocoa',
+        'AOP Charentes-Poitou Butter',
+        'Belgian Chocolate Flakes',
+        'Organic Fresh Berries',
+        'Roasted Coffee Extract'
+      ],
+      sizes: [
+        { label: 'Signature (8-10 Servings)', weight_grams: 1800, price: 96 },
+        { label: 'Banquet (16-18 Servings)', weight_grams: 3200, price: 165 }
+      ],
+      rating: 4.97,
+      review_count: 64,
+      sales_count: 240,
+      created_at: '2026-01-05T09:00:00.000Z'
+    },
+    {
+      id: 'prod_pistachio_raspberry',
+      name: 'Sicilian Pistachio & Raspberry Chantilly',
+      slug: 'sicilian-pistachio-raspberry-chantilly',
+      description: 'Bronte pistachio dacquoise with layered raspberry coulis, silky white chocolate and pistachio mousseline, dressed with crushed emerald pistachios and fresh raspberries.',
+      category: 'Cream Cakes',
+      category_slug: 'cream-cakes',
+      price: 84,
+      weight_grams: 1200,
+      available: true,
+      pre_order_available: true,
+      preparation_time_hours: 8,
+      featured: false,
+      best_seller: false,
+      is_new: true,
+      images: [
+        '/src/assets/images/fruit_tart_cake_1793864721977.jpg',
+        '/src/assets/images/birthday_cake_artisan_1793864721039.jpg'
+      ],
+      ingredients: [
+        'Sicilian Bronte Pistachio Paste',
+        'Fresh Raspberries',
+        'White Chocolate 33%',
+        'Almond Flour',
+        'Clover Honey'
+      ],
+      sizes: [
+        { label: 'Medium (6-8 Servings)', weight_grams: 1200, price: 84 },
+        { label: 'Large (10-12 Servings)', weight_grams: 2000, price: 130 }
+      ],
+      rating: 4.89,
+      review_count: 21,
+      sales_count: 76,
+      created_at: '2026-02-14T11:00:00.000Z'
+    },
+    {
+      id: 'prod_enchanted_forest',
+      name: 'Enchanted Woodland Fairytale Cake',
+      slug: 'enchanted-woodland-fairytale-cake',
+      description: 'Delightful artisanal children cake with pastel buttercream gradient, handcrafted sugar fawn and mushroom accents, soft vanilla sponge with strawberry compote.',
+      category: "Children's Cakes",
+      category_slug: 'childrens-cakes',
+      price: 79,
+      weight_grams: 1300,
+      available: true,
+      pre_order_available: true,
+      preparation_time_hours: 12,
+      featured: false,
+      best_seller: false,
+      is_new: true,
+      images: [
+        '/src/assets/images/birthday_cake_artisan_1793864721039.jpg',
+        '/src/assets/images/fruit_tart_cake_1793864721977.jpg'
+      ],
+      ingredients: [
+        'Organic Vanilla Sponge',
+        'Fresh Strawberry Purée',
+        'Swiss Meringue Buttercream',
+        'All-Natural Food Colorants',
+        'Handmade Sugar Sculptures'
+      ],
+      sizes: [
+        { label: 'Standard (8-10 Servings)', weight_grams: 1300, price: 79 },
+        { label: 'Party (14-16 Servings)', weight_grams: 2200, price: 125 }
+      ],
+      rating: 4.93,
+      review_count: 15,
+      sales_count: 53,
+      created_at: '2026-02-18T10:00:00.000Z'
+    },
+    {
+      id: 'prod_bespoke_atelier',
+      name: 'Atelier Bespoke Custom Celebration Tier',
+      slug: 'atelier-bespoke-custom-celebration-tier',
+      description: 'A completely customized culinary canvas. Collaborate with our executive pastry chef on personalized flavor profiles, custom structural sculpting, and monogram inscriptions.',
+      category: 'Custom Cakes',
+      category_slug: 'custom-cakes',
+      price: 110,
+      weight_grams: 1500,
+      available: true,
+      pre_order_available: true,
+      preparation_time_hours: 24,
+      featured: true,
+      best_seller: false,
+      is_new: false,
+      images: [
+        '/src/assets/images/wedding_cake_tiered_1793864721265.jpg',
+        '/src/assets/images/hero_signature_cake_1793864720413.jpg'
+      ],
+      ingredients: [
+        'Custom Sponge of Choice',
+        'Artisan Ganache & Buttercreams',
+        'Edible 24K Leafing',
+        'Custom Sculpting Paste',
+        'Chef Signature Infusions'
+      ],
+      sizes: [
+        { label: 'Single Tier (1.5 kg)', weight_grams: 1500, price: 110 },
+        { label: 'Two Tiers (2.5 kg)', weight_grams: 2500, price: 175 },
+        { label: 'Three Tiers (4.0 kg)', weight_grams: 4000, price: 290 }
+      ],
+      rating: 5.0,
+      review_count: 29,
+      sales_count: 98,
+      created_at: '2026-01-10T16:00:00.000Z'
+    }
+  ],
+  reviews: [
+    {
+      id: 'rev_1',
+      product_id: 'prod_royal_crown',
+      user_name: 'Genevieve Dupond',
+      rating: 5,
+      comment: 'Ordered this for my daughter 21st celebration. The sugar crown was an absolute showstopper and the bourbon vanilla sponge was the lightest texture I have ever tasted in London or Paris.',
+      is_verified_purchase: true,
+      status: 'Approved',
+      created_at: '2026-02-15T14:22:00.000Z'
+    },
+    {
+      id: 'rev_2',
+      product_id: 'prod_opera_ganache',
+      user_name: 'Marcus Sterling',
+      rating: 5,
+      comment: 'Uncompromising chocolate mastery. The mirror glaze was flawless and the hazelnut feuilletine provided the most satisfying contrast. Delivered punctual to the minute.',
+      is_verified_purchase: true,
+      status: 'Approved',
+      created_at: '2026-02-20T19:10:00.000Z'
+    },
+    {
+      id: 'rev_3',
+      product_id: 'prod_celestial_wedding',
+      user_name: 'Lady Eleanor & Arthur',
+      rating: 5,
+      comment: 'Semurug created our dream wedding centerpiece. All 90 guests raved about the passionfruit curd and champagne sponge. Professional tasting and flawless white-glove setup.',
+      is_verified_purchase: true,
+      status: 'Approved',
+      created_at: '2026-02-24T11:45:00.000Z'
+    },
+    {
+      id: 'rev_4',
+      product_id: 'prod_passion_berry',
+      user_name: 'Sophie Alverez',
+      rating: 5,
+      comment: 'Bright, refreshing, and gorgeous on the table. The passionfruit drizzle elevates this far beyond standard bakery fruit cakes. Will be reordering for every summer dinner.',
+      is_verified_purchase: true,
+      status: 'Approved',
+      created_at: '2026-02-27T16:30:00.000Z'
+    }
+  ],
+  orders: [
+    {
+      id: 'ord_1001',
+      order_number: 'SMR-8921',
+      user_id: 'user_cust1',
+      customer_name: 'Charlotte Vance',
+      customer_email: 'charlotte.vance@example.com',
+      customer_phone: '+1 (555) 234-8901',
+      delivery_address: '45 Kensington Crescent, Suite 4B, London',
+      delivery_date: '2026-11-06',
+      delivery_time: '14:00 - 16:00',
+      order_notes: 'Please ring bell upon arrival, handle gently.',
+      items: [
+        {
+          product_id: 'prod_royal_crown',
+          name: 'The Imperial Vanilla & Macaron Crown',
+          price: 89,
+          quantity: 1,
+          size_label: 'Classic (6-8 Servings)',
+          weight_grams: 1400,
+          image: '/src/assets/images/birthday_cake_artisan_1793864721039.jpg'
+        }
+      ],
+      subtotal: 89,
+      delivery_cost: 0,
+      total: 89,
+      payment_method: 'card_on_delivery',
+      status: 'Confirmed',
+      created_at: '2026-11-04T10:15:00.000Z'
+    },
+    {
+      id: 'ord_1002',
+      order_number: 'SMR-8922',
+      user_id: null,
+      customer_name: 'David Reynolds',
+      customer_email: 'd.reynolds@consulting.com',
+      customer_phone: '+1 (555) 876-5432',
+      delivery_address: '12 Belgravia Mews, Floor 2',
+      delivery_date: '2026-11-05',
+      delivery_time: '10:00 - 12:00',
+      order_notes: 'Corporate gift box packaging please.',
+      items: [
+        {
+          product_id: 'prod_opera_ganache',
+          name: 'Nocturne Valrhona Mirror Truffle',
+          price: 78,
+          quantity: 2,
+          size_label: 'Standard (6 Servings)',
+          weight_grams: 1100,
+          image: '/src/assets/images/chocolate_truffle_cake_1793864721562.jpg'
+        }
+      ],
+      subtotal: 156,
+      delivery_cost: 0,
+      total: 156,
+      payment_method: 'online_card',
+      status: 'Preparing',
+      created_at: '2026-11-04T15:30:00.000Z'
+    }
+  ],
+  custom_orders: [
+    {
+      id: 'custom_001',
+      order_number: 'CST-4011',
+      user_id: 'user_cust1',
+      customer_name: 'Vivienne Westwood Fan',
+      customer_email: 'vivienne@fashionstyle.co',
+      customer_phone: '+1 (555) 432-1098',
+      cake_type: 'Heart Vintage Two-Tier',
+      weight_kg: 2.5,
+      flavor: 'Pistachio Raspberry Coulis',
+      cream: 'White Chocolate Ganache',
+      decoration: 'Victorian Lambeth piping, edible pearls and fresh raspberries',
+      personalized_message: 'Happy 30th Vivienne',
+      delivery_date: '2026-11-08',
+      delivery_time: '12:00 - 14:00',
+      estimated_price: 185,
+      status: 'Confirmed',
+      created_at: '2026-11-03T18:20:00.000Z'
+    }
+  ],
+  users: [
+    {
+      id: 'user_admin',
+      email: 'admin@semurug.com',
+      password_hash: 'admin123', // In demo/test environment, plain match or sha256
+      full_name: 'Master Pâtissier Semurug',
+      phone: '+1 (555) 900-CAKE',
+      role: 'admin',
+      address: '77 Royal Pastry Boulevard, Pâtisserie Grand Studio',
+      created_at: '2026-01-01T00:00:00.000Z'
+    },
+    {
+      id: 'user_cust1',
+      email: 'customer@semurug.com',
+      password_hash: 'cake123',
+      full_name: 'Charlotte Vance',
+      phone: '+1 (555) 234-8901',
+      role: 'customer',
+      address: '45 Kensington Crescent, Suite 4B, London',
+      created_at: '2026-02-01T00:00:00.000Z'
+    }
+  ],
+  settings: {
+    shop_name: 'SEMURUG CAKE CENTER',
+    phone: '+1 (555) 900-2253',
+    email: 'concierge@semurugcakes.com',
+    telegram_url: 'https://t.me/semurug_cake_bot',
+    instagram_url: 'https://instagram.com/semurug_cakes',
+    address: '77 Royal Pastry Boulevard, Boutique 4, Mayfair District',
+    working_hours: 'Monday – Sunday: 08:00 AM – 21:00 PM',
+    delivery_fee: 15,
+    free_delivery_threshold: 80,
+    banner_text: 'Complimentary white-glove hand delivery on luxury orders above $80 · Same-day pre-orders before 2 PM',
+    banner_active: true,
+    telegram_bot_enabled: true
+  }
+};
