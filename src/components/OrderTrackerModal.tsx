@@ -10,12 +10,12 @@ interface OrderTrackerModalProps {
 }
 
 const STATUS_STEPS = [
-  { key: 'Pending', label: 'Order Received', desc: 'Requisition queued in kitchen', icon: Clock },
-  { key: 'Confirmed', label: 'Confirmed', desc: 'Ingredients reserved & tempered', icon: CheckCircle },
-  { key: 'Preparing', label: 'Baking & Sculpting', desc: 'Pâtissier handcrafting cake', icon: ChefHat },
-  { key: 'Ready', label: 'Quality Inspected', desc: 'Chilled in temperature vault', icon: Check },
-  { key: 'Delivering', label: 'Out for Delivery', desc: 'White-glove courier en route', icon: Truck },
-  { key: 'Completed', label: 'Delivered', desc: 'Presented at doorstep', icon: CheckCircle },
+  { key: 'Pending', label: 'Qabul qilindi', desc: 'Buyurtma oshxonaga navbatga qo\'yildi', icon: Clock },
+  { key: 'Confirmed', label: 'Tasdiqlandi', desc: 'Masalliqlar tayyorlab qo\'yildi', icon: CheckCircle },
+  { key: 'Preparing', label: 'Pishirish & Bezatish', desc: 'Qandolatchi tortni tayyorlamoqda', icon: ChefHat },
+  { key: 'Ready', label: 'Tayyor & Sovutilmoqda', desc: 'Harorat kamerasida saqlanmoqda', icon: Check },
+  { key: 'Delivering', label: 'Yetkazilmoqda', desc: 'Kuryer manzilga yo\'l oldi', icon: Truck },
+  { key: 'Completed', label: 'Yetkazib berildi', desc: 'Mijozga ehtiyotkorlik bilan topshirildi', icon: CheckCircle },
 ];
 
 export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
@@ -40,7 +40,7 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
       const found = await api.getOrderById(orderQuery.trim().toUpperCase());
       setOrder(found);
     } catch (err: any) {
-      setError(`Order #${orderQuery.trim()} could not be located. Please verify your reference number (e.g. SMR-8921).`);
+      setError(`Buyurtma #${orderQuery.trim()} topilmadi. Iltimos raqamni tekshirib qayta kiriting (masalan: SMR-8921).`);
       setOrder(null);
     } finally {
       setLoading(false);
@@ -60,13 +60,13 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
           <div className="flex items-center gap-2">
             <Package className="w-5 h-5 text-[#895737]" />
             <h2 className="font-serif text-lg font-bold text-[#2C2420]">
-              Track Your Cake Order
+              Buyurtmangizni Kuzatish
             </h2>
           </div>
           <button
             onClick={onClose}
             className="p-1.5 rounded-full hover:bg-[#EFE8DE] text-[#5E4D44] hover:text-[#2C2420] transition-colors"
-            aria-label="Close tracker"
+            aria-label="Yopish"
           >
             <X className="w-5 h-5" />
           </button>
@@ -82,7 +82,7 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
                 type="text"
                 value={orderQuery}
                 onChange={(e) => setOrderQuery(e.target.value)}
-                placeholder="Enter your Order Reference (e.g. SMR-8921)"
+                placeholder="Buyurtma raqamini kiriting (masalan: SMR-8921)"
                 className="w-full px-4 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs font-mono uppercase text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
               />
             </div>
@@ -92,7 +92,7 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
               className="px-5 py-2.5 bg-[#2C2420] hover:bg-[#895737] text-white text-xs font-semibold rounded-xl transition-colors flex items-center gap-1.5 disabled:opacity-50"
             >
               <Search className="w-4 h-4" />
-              <span>{loading ? 'Searching...' : 'Locate'}</span>
+              <span>{loading ? 'Qidirilmoqda...' : 'Qidirish'}</span>
             </button>
           </form>
 
@@ -106,7 +106,7 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
           {/* Quick Demo Shortcuts */}
           {!order && !error && (
             <div className="p-4 rounded-2xl bg-[#F4EFEA] border border-[#E8DFD5] text-xs space-y-2 text-[#5E4D44]">
-              <span className="font-semibold text-[#2C2420] block">Recent demo orders available to track:</span>
+              <span className="font-semibold text-[#2C2420] block">Kuzatish uchun mavjud test buyurtmalar:</span>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => {
@@ -115,7 +115,7 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
                   }}
                   className="px-2.5 py-1 bg-white hover:bg-[#EFE8DE] rounded-lg border border-[#E8DFD5] font-mono font-semibold text-[#895737]"
                 >
-                  SMR-8921 (Confirmed)
+                  SMR-8921 (Tasdiqlangan)
                 </button>
                 <button
                   onClick={() => {
@@ -124,7 +124,7 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
                   }}
                   className="px-2.5 py-1 bg-white hover:bg-[#EFE8DE] rounded-lg border border-[#E8DFD5] font-mono font-semibold text-[#895737]"
                 >
-                  SMR-8922 (Preparing)
+                  SMR-8922 (Pishirilmoqda)
                 </button>
               </div>
             </div>
@@ -135,21 +135,21 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
             <div className="space-y-6">
               <div className="p-4 bg-white rounded-2xl border border-[#E8DFD5] shadow-sm flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <span className="text-[10px] text-[#8C7A70] uppercase tracking-wider block">Order Reference</span>
+                  <span className="text-[10px] text-[#8C7A70] uppercase tracking-wider block">Buyurtma Raqami</span>
                   <div className="font-mono text-lg font-bold text-[#2C2420]">
                     #{order.order_number}
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-[10px] text-[#8C7A70] uppercase tracking-wider block">Scheduled Arrival</span>
+                  <span className="text-[10px] text-[#8C7A70] uppercase tracking-wider block">Yetkazish Vaqti</span>
                   <div className="text-xs font-semibold text-[#2C2420]">
                     {order.delivery_date} · {order.delivery_time}
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-[10px] text-[#8C7A70] uppercase tracking-wider block">Live Status</span>
+                  <span className="text-[10px] text-[#8C7A70] uppercase tracking-wider block">Hozirgi Holat</span>
                   <span className="inline-block px-2.5 py-0.5 bg-amber-100 text-amber-900 rounded font-semibold text-xs">
                     {order.status}
                   </span>
@@ -159,7 +159,7 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
               {/* Status Timeline */}
               <div className="p-6 bg-white rounded-2xl border border-[#E8DFD5] space-y-6">
                 <h3 className="font-serif text-sm font-bold text-[#2C2420] uppercase tracking-wider">
-                  Patisserie Progress Timeline
+                  Buyurtma Bajarilish Bosqichlari
                 </h3>
 
                 <div className="space-y-6">
@@ -204,7 +204,7 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
                             </span>
                             {isCurrent && (
                               <span className="text-[10px] font-semibold text-[#895737] uppercase">
-                                Active State
+                                Hozirgi Bosqich
                               </span>
                             )}
                           </div>
@@ -219,7 +219,7 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
               {/* Order Items Summary */}
               <div className="p-4 bg-[#F4EFEA] rounded-2xl border border-[#E8DFD5] space-y-2 text-xs">
                 <span className="font-bold text-[#2C2420] block uppercase tracking-wider text-[11px]">
-                  Ordered Confections:
+                  Buyurtma Qilingan Tortlar:
                 </span>
                 {order.items.map((item, i) => (
                   <div key={i} className="flex justify-between text-[#5E4D44]">
@@ -228,7 +228,7 @@ export const OrderTrackerModal: React.FC<OrderTrackerModalProps> = ({
                   </div>
                 ))}
                 <div className="pt-2 border-t border-[#E8DFD5] flex justify-between font-bold text-[#2C2420]">
-                  <span>Total Amount:</span>
+                  <span>Jami To'lov:</span>
                   <span className="tabular-nums font-mono">${order.total}</span>
                 </div>
               </div>

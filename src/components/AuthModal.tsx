@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { X, Lock, Mail, User as UserIcon, Phone, MapPin, Shield } from 'lucide-react';
+import { X, Lock, Mail, User as UserIcon, Phone, MapPin, Shield, ArrowRight, Sparkles } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.js';
 
 export const AuthModal: React.FC = () => {
-  const { isAuthModalOpen, setIsAuthModalOpen, authModalMode, setAuthModalMode, login, register } = useAuth();
+  const {
+    isAuthModalOpen,
+    setIsAuthModalOpen,
+    setIsAdminLoginModalOpen,
+    authModalMode,
+    setAuthModalMode,
+    login,
+    register,
+  } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,26 +41,16 @@ export const AuthModal: React.FC = () => {
         });
       }
     } catch (err: any) {
-      setError(err.message || 'Authentication failed');
+      setError(err.message || 'Kirish muvaffaqiyatsiz bo\'ldi');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDemoLogin = async (role: 'admin' | 'customer') => {
+  const handleFillDemoCustomer = () => {
+    setEmail('customer@semurug.com');
+    setPassword('cake123');
     setError(null);
-    setLoading(true);
-    try {
-      if (role === 'admin') {
-        await login('admin@semurug.com', 'admin123');
-      } else {
-        await login('customer@semurug.com', 'cake123');
-      }
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
@@ -70,43 +68,68 @@ export const AuthModal: React.FC = () => {
 
         {/* Modal Header */}
         <div className="text-center space-y-1">
-          <span className="text-xs font-semibold text-[#895737] uppercase tracking-widest block">
-            Semurug Patisserie Club
-          </span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#F4EFEA] rounded-full text-[11px] font-semibold text-[#895737] uppercase tracking-wider mb-1">
+            <Sparkles className="w-3.5 h-3.5 text-[#C59B62]" />
+            <span>Xaridor Shaxsiy Kabineti</span>
+          </div>
           <h2 className="font-serif text-2xl font-bold text-[#2C2420]">
-            {authModalMode === 'login' ? 'Welcome Back' : 'Create an Account'}
+            {authModalMode === 'login' ? 'Kabinetga Kirish' : 'Yangi Xisob Ochish'}
           </h2>
           <p className="text-xs text-[#5E4D44]">
             {authModalMode === 'login'
-              ? 'Access past celebration orders and bespoke requests'
-              : 'Join for priority cake reservations and tasting invites'}
+              ? 'Buyurtmalaringiz holatini kuzatish va manzillarni boshqarish'
+              : 'Eksklyuziv tortlar va shaxsiy buyurtmalar uchun ro\'yxatdan o\'ting'}
           </p>
         </div>
 
-        {/* Demo Fast Login Buttons */}
-        <div className="p-3 bg-[#F4EFEA] rounded-2xl border border-[#E8DFD5] space-y-2">
-          <span className="text-[10px] text-[#8C7A70] uppercase font-bold tracking-wider block text-center">
-            One-Click Demo Access
-          </span>
-          <div className="grid grid-cols-2 gap-2">
+        {/* Mode Switcher Tabs */}
+        <div className="grid grid-cols-2 p-1 bg-[#F4EFEA] rounded-2xl border border-[#E8DFD5]">
+          <button
+            type="button"
+            onClick={() => {
+              setAuthModalMode('login');
+              setError(null);
+            }}
+            className={`py-2 text-xs font-semibold rounded-xl transition-all ${
+              authModalMode === 'login'
+                ? 'bg-[#2C2420] text-[#FAF7F2] shadow-sm'
+                : 'text-[#5E4D44] hover:text-[#2C2420]'
+            }`}
+          >
+            Kirish (Login)
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setAuthModalMode('register');
+              setError(null);
+            }}
+            className={`py-2 text-xs font-semibold rounded-xl transition-all ${
+              authModalMode === 'register'
+                ? 'bg-[#2C2420] text-[#FAF7F2] shadow-sm'
+                : 'text-[#5E4D44] hover:text-[#2C2420]'
+            }`}
+          >
+            Ro'yxatdan o'tish
+          </button>
+        </div>
+
+        {/* Fast Customer Demo Fill */}
+        {authModalMode === 'login' && (
+          <div className="p-3 bg-white rounded-2xl border border-[#E8DFD5] flex items-center justify-between gap-3 text-xs shadow-sm">
+            <div className="flex items-center gap-2 text-[#5E4D44]">
+              <UserIcon className="w-4 h-4 text-[#895737] shrink-0" />
+              <span>Demo xaridor akkaunti</span>
+            </div>
             <button
               type="button"
-              onClick={() => handleDemoLogin('admin')}
-              className="py-1.5 px-3 bg-[#2C2420] hover:bg-[#43352F] text-[#D4A373] text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+              onClick={handleFillDemoCustomer}
+              className="px-2.5 py-1 bg-[#F4EFEA] hover:bg-[#EFE8DE] text-[#895737] text-[11px] font-semibold rounded-lg border border-[#E8DFD5] transition-colors"
             >
-              <Shield className="w-3.5 h-3.5" />
-              <span>Admin Login</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDemoLogin('customer')}
-              className="py-1.5 px-3 bg-white hover:bg-[#EFE8DE] text-[#2C2420] text-xs font-semibold rounded-xl border border-[#E8DFD5] flex items-center justify-center gap-1.5 transition-colors shadow-sm"
-            >
-              <UserIcon className="w-3.5 h-3.5 text-[#895737]" />
-              <span>Customer Login</span>
+              Avtoto'ldirish
             </button>
           </div>
-        </div>
+        )}
 
         {/* Error Alert */}
         {error && (
@@ -119,7 +142,9 @@ export const AuthModal: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-3.5">
           {authModalMode === 'register' && (
             <div>
-              <label className="text-xs font-medium text-[#5E4D44] block mb-1">Full Name</label>
+              <label className="text-xs font-medium text-[#5E4D44] block mb-1">
+                Ism va Familiya *
+              </label>
               <div className="relative">
                 <UserIcon className="w-4 h-4 text-[#8C7A70] absolute left-3.5 top-3" />
                 <input
@@ -127,7 +152,7 @@ export const AuthModal: React.FC = () => {
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Charlotte Vance"
+                  placeholder="Shaxzoda Alimova"
                   className="w-full pl-10 pr-3.5 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                 />
               </div>
@@ -135,7 +160,9 @@ export const AuthModal: React.FC = () => {
           )}
 
           <div>
-            <label className="text-xs font-medium text-[#5E4D44] block mb-1">Email Address</label>
+            <label className="text-xs font-medium text-[#5E4D44] block mb-1">
+              Elektron Pochta *
+            </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-[#8C7A70] absolute left-3.5 top-3" />
               <input
@@ -143,14 +170,16 @@ export const AuthModal: React.FC = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="your.email@luxury.com"
+                placeholder="xaridor@gmail.com"
                 className="w-full pl-10 pr-3.5 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-medium text-[#5E4D44] block mb-1">Password</label>
+            <label className="text-xs font-medium text-[#5E4D44] block mb-1">
+              Maxfiy Parol *
+            </label>
             <div className="relative">
               <Lock className="w-4 h-4 text-[#8C7A70] absolute left-3.5 top-3" />
               <input
@@ -167,28 +196,32 @@ export const AuthModal: React.FC = () => {
           {authModalMode === 'register' && (
             <>
               <div>
-                <label className="text-xs font-medium text-[#5E4D44] block mb-1">Phone Number</label>
+                <label className="text-xs font-medium text-[#5E4D44] block mb-1">
+                  Telefon Raqami (Yetkazib berish uchun)
+                </label>
                 <div className="relative">
                   <Phone className="w-4 h-4 text-[#8C7A70] absolute left-3.5 top-3" />
                   <input
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+1 (555) 234-8901"
+                    placeholder="+998 (90) 123-4567"
                     className="w-full pl-10 pr-3.5 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-medium text-[#5E4D44] block mb-1">Default Address</label>
+                <label className="text-xs font-medium text-[#5E4D44] block mb-1">
+                  Yetkazib berish manzili
+                </label>
                 <div className="relative">
                   <MapPin className="w-4 h-4 text-[#8C7A70] absolute left-3.5 top-3" />
                   <input
                     type="text"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    placeholder="45 Kensington Crescent, London"
+                    placeholder="Toshkent sh., Mirobod tumani..."
                     className="w-full pl-10 pr-3.5 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                   />
                 </div>
@@ -202,38 +235,30 @@ export const AuthModal: React.FC = () => {
             className="w-full py-3 px-6 bg-[#2C2420] hover:bg-[#895737] text-white text-xs font-semibold rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 mt-2"
           >
             {loading
-              ? 'Processing...'
+              ? 'Yuklanmoqda...'
               : authModalMode === 'login'
-              ? 'Sign In to Account'
-              : 'Create My Account'}
+              ? 'Xaridor sifatida kirish'
+              : 'Akkaunt yaratish'}
           </button>
         </form>
 
-        {/* Toggle Mode */}
-        <div className="text-center pt-2">
-          {authModalMode === 'login' ? (
-            <p className="text-xs text-[#5E4D44]">
-              Don't have an account yet?{' '}
-              <button
-                type="button"
-                onClick={() => setAuthModalMode('register')}
-                className="text-[#895737] font-semibold underline hover:text-[#2C2420]"
-              >
-                Create one now
-              </button>
-            </p>
-          ) : (
-            <p className="text-xs text-[#5E4D44]">
-              Already registered?{' '}
-              <button
-                type="button"
-                onClick={() => setAuthModalMode('login')}
-                className="text-[#895737] font-semibold underline hover:text-[#2C2420]"
-              >
-                Sign In
-              </button>
-            </p>
-          )}
+        {/* DEDICATED SEPARATE ADMIN LOGIN CALLOUT */}
+        <div className="pt-4 border-t border-[#E8DFD5] text-center space-y-2">
+          <p className="text-xs text-[#5E4D44]">
+            Semurug qandolatchilik markazi xodimimisiz?
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setIsAuthModalOpen(false);
+              setIsAdminLoginModalOpen(true);
+            }}
+            className="w-full py-2.5 px-4 bg-[#2C2420]/5 hover:bg-[#2C2420] text-[#2C2420] hover:text-[#D4A373] text-xs font-semibold rounded-xl border border-[#2C2420]/20 hover:border-[#2C2420] transition-all flex items-center justify-center gap-2 group"
+          >
+            <Shield className="w-3.5 h-3.5 text-[#895737] group-hover:text-[#D4A373]" />
+            <span>Administrator Kirish Portali</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </button>
         </div>
 
       </div>

@@ -1,4 +1,4 @@
-import { Product, Category, Order, CustomOrder, Review, User, ShopSettings } from '../types.js';
+import { Product, Category, Order, CustomOrder, Review, User, ShopSettings, Inquiry, Faq, GalleryItem, CustomCakeConfig } from '../types.js';
 
 const API_BASE = '/api';
 
@@ -161,6 +161,15 @@ export const api = {
     return res;
   },
 
+  async adminLogin(credentials: { email: string; password: string }): Promise<{ user: User; token: string }> {
+    const res = await request<{ user: User; token: string }>('/auth/admin-login', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+    });
+    setAuthToken(res.token);
+    return res;
+  },
+
   async register(data: { email: string; password: string; full_name: string; phone?: string; address?: string }): Promise<{ user: User; token: string }> {
     const res = await request<{ user: User; token: string }>('/auth/register', {
       method: 'POST',
@@ -206,6 +215,86 @@ export const api = {
     return request<ShopSettings>('/settings', {
       method: 'PUT',
       body: JSON.stringify(settings),
+    });
+  },
+
+  // Inquiries
+  async getInquiries(): Promise<Inquiry[]> {
+    return request<Inquiry[]>('/inquiries');
+  },
+
+  async createInquiry(data: { name: string; phone: string; email?: string; message: string }): Promise<Inquiry> {
+    return request<Inquiry>('/inquiries', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
+  async updateInquiryStatus(id: string, status: Inquiry['status']): Promise<Inquiry> {
+    return request<Inquiry>(`/inquiries/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status }),
+    });
+  },
+
+  async deleteInquiry(id: string): Promise<{ message: string }> {
+    return request<{ message: string }>(`/inquiries/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // FAQs
+  async getFaqs(): Promise<Faq[]> {
+    return request<Faq[]>('/faqs');
+  },
+
+  async createFaq(data: { question: string; answer: string; display_order?: number }): Promise<Faq> {
+    return request<Faq>('/faqs', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
+  async updateFaq(id: string, data: Partial<Faq>): Promise<Faq> {
+    return request<Faq>(`/faqs/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  },
+
+  async deleteFaq(id: string): Promise<{ message: string }> {
+    return request<{ message: string }>(`/faqs/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Gallery
+  async getGallery(): Promise<GalleryItem[]> {
+    return request<GalleryItem[]>('/gallery');
+  },
+
+  async createGalleryItem(data: { image: string; caption?: string; tag?: string; display_order?: number }): Promise<GalleryItem> {
+    return request<GalleryItem>('/gallery', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
+  async deleteGalleryItem(id: string): Promise<{ message: string }> {
+    return request<{ message: string }>(`/gallery/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Custom Cake Options
+  async getCustomCakeOptions(): Promise<CustomCakeConfig> {
+    return request<CustomCakeConfig>('/custom-cake-options');
+  },
+
+  async updateCustomCakeOptions(data: Partial<CustomCakeConfig>): Promise<CustomCakeConfig> {
+    return request<CustomCakeConfig>('/custom-cake-options', {
+      method: 'PUT',
+      body: JSON.stringify(data),
     });
   },
 };

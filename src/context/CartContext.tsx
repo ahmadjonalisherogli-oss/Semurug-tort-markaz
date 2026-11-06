@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product } from '../types.js';
+import { api } from '../services/api.js';
 
 export interface CartItem {
   id: string; // unique item id based on product id + size
@@ -93,11 +94,29 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setItems([]);
   };
 
-  const freeDeliveryThreshold = 80;
-  const standardDeliveryFee = 15;
+  const [deliverySettings, setDeliverySettings] = useState({
+    freeDeliveryThreshold: 80,
+    deliveryFee: 15,
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    api.getSettings()
+      .then((s) => {
+        if (!isMounted || !s) return;
+        setDeliverySettings({
+          freeDeliveryThreshold: typeof s.free_delivery_threshold === 'number' ? s.free_delivery_threshold : 80,
+          deliveryFee: typeof s.delivery_fee === 'number' ? s.delivery_fee : 15,
+        });
+      })
+      .catch(() => {});
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const subtotal = items.reduce((sum, item) => sum + item.size.price * item.quantity, 0);
-  const deliveryFee = items.length === 0 || subtotal >= freeDeliveryThreshold ? 0 : standardDeliveryFee;
+  const deliveryFee = items.length === 0 || subtotal >= deliverySettings.freeDeliveryThreshold ? 0 : deliverySettings.deliveryFee;
   const total = subtotal + deliveryFee;
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -111,7 +130,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         clearCart,
         subtotal,
         deliveryFee,
-        freeDeliveryThreshold,
+        freeDeliveryThreshold: deliverySettings.freeDeliveryThreshold,
         total,
         itemCount,
         isCartOpen,

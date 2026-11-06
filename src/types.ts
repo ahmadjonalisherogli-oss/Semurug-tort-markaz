@@ -104,6 +104,39 @@ export interface User {
   created_at: string;
 }
 
+export interface Inquiry {
+  id: string;
+  name: string;
+  phone: string;
+  email?: string;
+  message: string;
+  status: 'New' | 'Read' | 'Resolved';
+  created_at: string;
+}
+
+export interface Faq {
+  id: string;
+  question: string;
+  answer: string;
+  display_order: number;
+}
+
+export interface GalleryItem {
+  id: string;
+  image: string;
+  caption: string;
+  tag: string;
+  display_order: number;
+}
+
+export interface CustomCakeConfig {
+  shapes: { id: string; name: string; desc: string; baseMultiplier: number }[];
+  weights: { weight: number; servings: string; price: number }[];
+  flavors: { name: string; desc: string }[];
+  creams: { name: string; desc: string }[];
+  decorations: { name: string; desc: string; surcharge: number }[];
+}
+
 export interface ShopSettings {
   shop_name: string;
   phone: string;
@@ -117,6 +150,10 @@ export interface ShopSettings {
   banner_text: string;
   banner_active: boolean;
   telegram_bot_enabled: boolean;
+  hero_title?: string;
+  hero_subtitle?: string;
+  hero_badge?: string;
+  story_quote?: string;
 }
 
 export interface DatabaseSchema {
@@ -127,4 +164,8 @@ export interface DatabaseSchema {
   custom_orders: CustomOrder[];
   users: User[];
   settings: ShopSettings;
+  inquiries: Inquiry[];
+  faqs: Faq[];
+  gallery: GalleryItem[];
+  custom_options: CustomCakeConfig;
 }

@@ -7,11 +7,14 @@ interface AuthContextType {
   token: string | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  adminLogin: (email: string, password: string) => Promise<void>;
   register: (data: { email: string; password: string; full_name: string; phone?: string; address?: string }) => Promise<void>;
   logout: () => void;
   updateProfile: (data: { full_name: string; phone?: string; address?: string }) => Promise<void>;
   isAuthModalOpen: boolean;
   setIsAuthModalOpen: (open: boolean) => void;
+  isAdminLoginModalOpen: boolean;
+  setIsAdminLoginModalOpen: (open: boolean) => void;
   authModalMode: 'login' | 'register';
   setAuthModalMode: (mode: 'login' | 'register') => void;
 }
@@ -31,6 +34,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [token, setTokenState] = useState<string | null>(() => localStorage.getItem('semurug_token'));
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isAdminLoginModalOpen, setIsAdminLoginModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
 
   useEffect(() => {
@@ -56,6 +60,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setTokenState(res.token);
     localStorage.setItem('semurug_user', JSON.stringify(res.user));
     setIsAuthModalOpen(false);
+  };
+
+  const adminLogin = async (email: string, password: string) => {
+    const res = await api.adminLogin({ email, password });
+    setUser(res.user);
+    setTokenState(res.token);
+    localStorage.setItem('semurug_user', JSON.stringify(res.user));
+    setIsAdminLoginModalOpen(false);
   };
 
   const register = async (data: { email: string; password: string; full_name: string; phone?: string; address?: string }) => {
@@ -86,11 +98,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         token,
         loading,
         login,
+        adminLogin,
         register,
         logout,
         updateProfile,
         isAuthModalOpen,
         setIsAuthModalOpen,
+        isAdminLoginModalOpen,
+        setIsAdminLoginModalOpen,
         authModalMode,
         setAuthModalMode,
       }}

@@ -47,7 +47,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by flavor, occasion, ingredient (e.g. Pistachio, Valrhona, Wedding)..."
+            placeholder="Ta'm, bayram yoki masalliqlar bo'yicha qidiruv (masalan: Pista, Shokolad, To'y torti)..."
             className="flex-1 bg-transparent text-sm sm:text-base text-[#2C2420] placeholder-[#8C7A70] focus:outline-none"
           />
           <button
@@ -62,9 +62,9 @@ export const SearchModal: React.FC<SearchModalProps> = ({
         <div className="p-4 sm:p-6 overflow-y-auto space-y-3">
           {query.trim() === '' ? (
             <div className="py-8 text-center space-y-3 text-xs text-[#8C7A70]">
-              <span className="font-semibold text-[#2C2420] block">Popular Searches in the Boutique:</span>
+              <span className="font-semibold text-[#2C2420] block">Eng ko'p qidirilganlar:</span>
               <div className="flex flex-wrap justify-center gap-2">
-                {['Valrhona Chocolate', 'Birthday Crown', 'Ivory Wedding', 'Passionfruit Tier', 'Bronte Pistachio'].map((tag) => (
+                {['Valrhona Shokoladi', 'Tug\'ilgan Kun Torti', 'To\'y Oq Torti', 'Ekzotik Passionfruit', 'Sitsiliya Pistasi'].map((tag) => (
                   <button
                     key={tag}
                     onClick={() => setQuery(tag)}
@@ -77,12 +77,12 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             </div>
           ) : results.length === 0 ? (
             <div className="py-8 text-center text-xs text-[#8C7A70]">
-              No confectionery matched "{query}". Try searching for 'chocolate', 'vanilla', or 'wedding'.
+              "{query}" bo'yicha tort topilmadi. 'shokolad', 'vanil' yoki 'to'y' so'zlari orqali qidiring.
             </div>
           ) : (
             <div className="space-y-2.5">
               <span className="text-[11px] font-bold text-[#8C7A70] uppercase tracking-wider block">
-                Found {results.length} Creations
+                {results.length} ta mualliflik torti topildi
               </span>
               {results.map((product) => (
                 <div

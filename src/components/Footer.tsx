@@ -18,34 +18,34 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
               SEMURUG CAKE CENTER
             </h3>
             <p className="text-xs text-[#E8DFD5] max-w-sm leading-relaxed">
-              Purveyors of haute pâtisserie, sculptural celebration tiers, and decadent artisanal gateaux. Handcrafted daily with AOP Normandy cultured butter and grand cru cocoa.
+              Yuqori pâtisserie san'ati, muhtasham tantana tortlari va nozik shirinliklar uyi. Har kuni Normandiya AOP sariyog'i va saralangan Grand Cru kakaosi bilan mehr ila tayyorlanadi.
             </p>
             <div className="pt-2 flex items-center gap-2 text-xs text-[#D4A373]">
               <Sparkles className="w-4 h-4" />
-              <span>International Luxury Patisserie Standard</span>
+              <span>Xalqaro Qandolatchilikning Oliy Standarti</span>
             </div>
           </div>
 
           {/* Quick Links (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold text-[#D4A373] uppercase tracking-widest">
-              Confections
+              Kolleksiyalar
             </h4>
             <div className="flex flex-col space-y-2 text-xs text-[#E8DFD5]">
               <button onClick={() => onNavigate('catalog')} className="text-left hover:text-white transition-colors">
-                Birthday Cakes
+                Tug'ilgan Kun Tortlari
               </button>
               <button onClick={() => onNavigate('catalog')} className="text-left hover:text-white transition-colors">
-                Wedding Tiers
+                To'y Tortlari
               </button>
               <button onClick={() => onNavigate('catalog')} className="text-left hover:text-white transition-colors">
-                Valrhona Truffles
+                Valrhona Shokoladi
               </button>
               <button onClick={() => onNavigate('catalog')} className="text-left hover:text-white transition-colors">
-                Fruit & Chantilly
+                Mevali & Chantilly
               </button>
               <button onClick={() => onNavigate('custom')} className="text-left hover:text-white transition-colors">
-                Bespoke Atelier
+                Maxsus Tort Atelesi
               </button>
             </div>
           </div>
@@ -53,20 +53,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
           {/* Maison & Heritage (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold text-[#D4A373] uppercase tracking-widest">
-              The Maison
+              Brend Haqida
             </h4>
             <div className="flex flex-col space-y-2 text-xs text-[#E8DFD5]">
               <button onClick={() => onNavigate('home', 'heritage')} className="text-left hover:text-white transition-colors">
-                Our Heritage
+                Bizning Merosimiz
               </button>
               <button onClick={() => onNavigate('home', 'reviews')} className="text-left hover:text-white transition-colors">
-                Guest Reviews
+                Mijozlar Fikrlari
               </button>
               <button onClick={() => onNavigate('home', 'contact')} className="text-left hover:text-white transition-colors">
-                Mayfair Boutique
+                Markaziy Qandolatxona
               </button>
               <button onClick={() => onNavigate('catalog')} className="text-left hover:text-white transition-colors">
-                Delivery Schedule
+                Yetkazib Berish Tartibi
               </button>
             </div>
           </div>
@@ -74,19 +74,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
           {/* Atelier Portal (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold text-[#D4A373] uppercase tracking-widest">
-              Concierge & Atelier
+              Aloqa & Konsyerj
             </h4>
             <p className="text-xs text-[#E8DFD5] leading-relaxed">
-              Order line: +1 (555) 900-2253<br />
-              Email: concierge@semurugcakes.com<br />
-              Open daily 08:00 – 21:00
+              Buyurtma uchun: +998 (71) 200-1122<br />
+              Elektron pochta: concierge@semurugcakes.com<br />
+              Har kuni 08:00 dan 21:00 gacha
             </p>
             <div className="pt-2">
               <button
                 onClick={onOpenAdmin}
                 className="text-[11px] font-mono text-[#D4A373] hover:underline"
               >
-                Atelier Administration Suite →
+                Administrator Boshqaruv Paneli →
               </button>
             </div>
           </div>
@@ -96,14 +96,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
         {/* Quiet Bottom Copyright */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
           <div>
-            © {new Date().getFullYear()} SEMURUG CAKE CENTER. All rights reserved.
+            © {new Date().getFullYear()} SEMURUG CAKE CENTER. Barcha huquqlar himoyalangan.
           </div>
           <div className="flex items-center gap-4 text-[11px]">
-            <span>Privacy Policy</span>
+            <span>Maxfiylik Siyosati</span>
             <span>·</span>
-            <span>Terms of Patisserie</span>
+            <span>Foydalanish Shartlari</span>
             <span>·</span>
-            <span>Temperature Guarantee</span>
+            <span>Sovutish & Sifat Kafolati</span>
           </div>
         </div>
 

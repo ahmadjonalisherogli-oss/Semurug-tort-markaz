@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Instagram, ExternalLink } from 'lucide-react';
-
-const INSTAGRAM_SHOTS = [
-  { img: '/src/assets/images/hero_signature_cake_1793864720413.jpg', tag: '@semurug_cakes', caption: 'The Double Velvet Signature' },
-  { img: '/src/assets/images/birthday_cake_artisan_1793864721039.jpg', tag: '@semurug_cakes', caption: 'Bourbon Vanilla & Macarons' },
-  { img: '/src/assets/images/wedding_cake_tiered_1793864721265.jpg', tag: '@semurug_cakes', caption: 'Four-Tier Ivory Sugar Petals' },
-  { img: '/src/assets/images/chocolate_truffle_cake_1793864721562.jpg', tag: '@semurug_cakes', caption: 'Valrhona Mirror Ganache Slice' },
-  { img: '/src/assets/images/fruit_tart_cake_1793864721977.jpg', tag: '@semurug_cakes', caption: 'Passionfruit Soleil Tier' },
-];
+import { api } from '../services/api.js';
+import { GalleryItem } from '../types.js';
 
 export const InstagramGallery: React.FC = () => {
+  const [gallery, setGallery] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadGallery() {
+      try {
+        const data = await api.getGallery();
+        setGallery(data);
+      } catch (err) {
+        console.error('Failed to load gallery items:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadGallery();
+  }, []);
+
   return (
     <section className="py-16 sm:py-20 bg-[#F4EFEA] border-t border-[#E8DFD5]">
       <div className="max-w-7xl mx-auto px-6 space-y-10">
@@ -38,27 +49,31 @@ export const InstagramGallery: React.FC = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {INSTAGRAM_SHOTS.map((shot, idx) => (
-            <div
-              key={idx}
-              className="group relative aspect-square rounded-2xl overflow-hidden bg-[#EFE8DE] border border-[#E8DFD5] shadow-sm cursor-pointer"
-            >
-              <img
-                src={shot.img}
-                alt={shot.caption}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2C2420]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-end text-white">
-                <span className="text-[10px] text-[#D4A373] uppercase tracking-wider font-bold">
-                  {shot.tag}
-                </span>
-                <p className="font-serif text-xs font-semibold line-clamp-1">{shot.caption}</p>
+        {loading ? (
+          <div className="py-12 text-center text-xs text-[#8C7A70]">Loading patisserie photos...</div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            {gallery.map((shot, idx) => (
+              <div
+                key={shot.id || idx}
+                className="group relative aspect-square rounded-2xl overflow-hidden bg-[#EFE8DE] border border-[#E8DFD5] shadow-sm cursor-pointer"
+              >
+                <img
+                  src={shot.image}
+                  alt={shot.caption}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2C2420]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-end text-white">
+                  <span className="text-[10px] text-[#D4A373] uppercase tracking-wider font-bold">
+                    {shot.tag || '@semurug_cakes'}
+                  </span>
+                  <p className="font-serif text-xs font-semibold line-clamp-1">{shot.caption}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
       </div>
     </section>

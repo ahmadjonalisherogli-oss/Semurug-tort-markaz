@@ -35,15 +35,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
           className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
         />
 
-        {/* Quiet Kicker / Status (Unboxed subtle text) */}
+        {/* Quiet Kicker / Status */}
         {product.best_seller && (
           <div className="absolute top-3 left-3 bg-[#2C2420]/80 backdrop-blur-sm text-[#FAF7F2] text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-md">
-            Best Seller
+            Hit Mahsulot
           </div>
         )}
         {!product.best_seller && product.is_new && (
           <div className="absolute top-3 left-3 bg-[#895737]/80 backdrop-blur-sm text-[#FAF7F2] text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-md">
-            New Creation
+            Yangi Ijod
           </div>
         )}
 
@@ -57,7 +57,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
             className="px-4 py-2 bg-white/95 text-[#2C2420] text-xs font-semibold rounded-xl shadow-lg hover:bg-white flex items-center gap-1.5 transition-transform scale-95 group-hover:scale-100"
           >
             <Eye className="w-3.5 h-3.5" />
-            <span>View Details</span>
+            <span>Batafsil Ko'rish</span>
           </button>
         </div>
       </div>
@@ -69,7 +69,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
           <div className="flex items-center gap-2 text-xs text-[#895737] font-medium tracking-wide">
             <span className="uppercase">{product.category}</span>
             <span aria-hidden="true" className="text-[#D4C5B9]">·</span>
-            <span>{product.weight_grams}g</span>
+            <span>{product.weight_grams} g</span>
             <span aria-hidden="true" className="text-[#D4C5B9]">·</span>
             <div className="flex items-center gap-1 text-[#2C2420]">
               <Star className="w-3 h-3 fill-[#C59B62] text-[#C59B62]" />
@@ -89,7 +89,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
         {/* Price & Action Row */}
         <div className="pt-3 border-t border-[#E8DFD5] flex items-center justify-between gap-3">
           <div>
-            <span className="text-[10px] text-[#8C7A70] block uppercase tracking-wider">Starting from</span>
+            <span className="text-[10px] text-[#8C7A70] block uppercase tracking-wider">Boshlang'ich narx</span>
             <div className="font-serif text-xl font-bold text-[#2C2420] tabular-nums">
               ${product.price}
             </div>
@@ -105,20 +105,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
                 ? 'bg-[#2C2420] text-[#FAF7F2] hover:bg-[#895737] shadow-sm'
                 : 'bg-stone-200 text-stone-400 cursor-not-allowed'
             }`}
-            title="Add to shopping bag"
+            title="Savatga qo'shish"
           >
             {added ? (
               <>
                 <Check className="w-3.5 h-3.5" />
-                <span>Added</span>
+                <span>Qo'shildi</span>
               </>
             ) : product.available ? (
               <>
                 <ShoppingBag className="w-3.5 h-3.5" />
-                <span>Add to Bag</span>
+                <span>Savatga</span>
               </>
             ) : (
-              <span>Sold Out</span>
+              <span>Tugagan</span>
             )}
           </button>
         </div>

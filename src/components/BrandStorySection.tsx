@@ -1,7 +1,12 @@
 import React from 'react';
 import { Award, Wheat, Heart, Sparkles, ShieldCheck } from 'lucide-react';
+import { ShopSettings } from '../types.js';
 
-export const BrandStorySection: React.FC = () => {
+interface BrandStoryProps {
+  settings?: ShopSettings;
+}
+
+export const BrandStorySection: React.FC<BrandStoryProps> = ({ settings }) => {
   return (
     <section id="heritage" className="py-16 sm:py-20 bg-[#F4EFEA] border-y border-[#E8DFD5]">
       <div className="max-w-7xl mx-auto px-6">
@@ -19,12 +24,12 @@ export const BrandStorySection: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-[#2C2420]/80 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white p-4 bg-[#2C2420]/80 backdrop-blur-md rounded-2xl border border-white/10">
                 <span className="text-[10px] text-[#D4A373] uppercase tracking-widest font-bold">
-                  Boutique Heritage
+                  Butik Merosi
                 </span>
                 <p className="font-serif text-sm italic mt-1 text-[#FAF7F2]">
-                  "A great cake is never just sugar and flour—it is the focal memory of life's most precious celebrations."
+                  "{settings?.story_quote || "Mukammal tort faqat shirinlik emas — u hayotingizning eng qadrli va unutilmas lahzalari xotirasidir."}"
                 </p>
-                <span className="text-[11px] text-stone-300 block mt-2">— Chef Patron Semurug</span>
+                <span className="text-[11px] text-stone-300 block mt-2">— Bosh Qandolatchi Chef Semurug</span>
               </div>
             </div>
           </div>
@@ -33,55 +38,55 @@ export const BrandStorySection: React.FC = () => {
           <div className="lg:col-span-7 space-y-6">
             <div className="flex items-center gap-2 text-xs font-semibold tracking-widest text-[#895737] uppercase">
               <Sparkles className="w-4 h-4 text-[#C59B62]" />
-              <span>The Semurug Philosophy</span>
+              <span>Semurug Falsafasi</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#2C2420] [text-wrap:balance]">
-              Uncompromising Quality in Every Handcrafted Layer
+              Har Bir Qavatda Betakror Mahorat va Mukammal Sifat
             </h2>
 
             <p className="text-sm sm:text-base text-[#5E4D44] leading-relaxed">
-              Founded on the belief that celebratory confections should be both museum-grade sculptures and culinary revelations, Semurug Cake Center creates each cake individually to order in our Mayfair atelier.
+              Har bir bayram torti nafis haykaltaroshlik asari va betakror lazzat uyg'unligi bo'lishi kerak degan falsafaga asoslanib, Semurug Cake Center har bir tortni shaxsiy buyurtma asosida o'z qandolatchilik ustaxonasida tayyorlaydi.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="p-4 bg-white rounded-2xl border border-[#E8DFD5] space-y-1.5 shadow-sm">
                 <div className="flex items-center gap-2 text-[#2C2420] font-bold text-xs uppercase tracking-wider">
                   <Wheat className="w-4 h-4 text-[#895737]" />
-                  <span>AOP Normandy Butter</span>
+                  <span>AOP Normandiya Sarayog'i</span>
                 </div>
                 <p className="text-xs text-[#5E4D44] leading-relaxed">
-                  Slow-churned cultured butter imparting an incomparable silky crumb and velvety finish.
+                  Maxsus an'ana bilan yetiltirilgan fransuz sarayog'i tortga ipakdek mayinlik va nozik baxmal ta'm bag'ishlaydi.
                 </p>
               </div>
 
               <div className="p-4 bg-white rounded-2xl border border-[#E8DFD5] space-y-1.5 shadow-sm">
                 <div className="flex items-center gap-2 text-[#2C2420] font-bold text-xs uppercase tracking-wider">
                   <Award className="w-4 h-4 text-[#895737]" />
-                  <span>Grand Cru Valrhona</span>
+                  <span>Grand Cru Valrhona Shokoladi</span>
                 </div>
                 <p className="text-xs text-[#5E4D44] leading-relaxed">
-                  Single-origin chocolate with deep aromatic profiles, roasted cocoa crunches, and mirror glazes.
+                  Chuqur xushbo'y hidli toza shokolad, qovurilgan kakao parchalari va oynadek yaltiroq muzlama.
                 </p>
               </div>
 
               <div className="p-4 bg-white rounded-2xl border border-[#E8DFD5] space-y-1.5 shadow-sm">
                 <div className="flex items-center gap-2 text-[#2C2420] font-bold text-xs uppercase tracking-wider">
                   <ShieldCheck className="w-4 h-4 text-[#895737]" />
-                  <span>Zero Artificial Preservatives</span>
+                  <span>Sun'iy Konservantlardan Xoli</span>
                 </div>
                 <p className="text-xs text-[#5E4D44] leading-relaxed">
-                  Pure unrefined sugars, organic free-range eggs, and real vanilla caviar sourced directly from Madagascar.
+                  Faqat tabiiy xomashyo, toza tuxum va to'g'ridan-to'g'ri Madagaskardan keltirilgan haqiqiy vanil urug'lari.
                 </p>
               </div>
 
               <div className="p-4 bg-white rounded-2xl border border-[#E8DFD5] space-y-1.5 shadow-sm">
                 <div className="flex items-center gap-2 text-[#2C2420] font-bold text-xs uppercase tracking-wider">
                   <Heart className="w-4 h-4 text-[#895737]" />
-                  <span>White-Glove Delivery</span>
+                  <span>Ehtiyotkor Yetkazib Berish</span>
                 </div>
                 <p className="text-xs text-[#5E4D44] leading-relaxed">
-                  Dedicated refrigerated transit ensuring tier stability, pristine finishes, and punctual arrival.
+                  Harorat nazorat qilinadigan maxsus transport vositasida tort butunligi va nafisligini saqlagan holda yetkazish.
                 </p>
               </div>
             </div>

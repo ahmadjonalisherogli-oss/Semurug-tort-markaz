@@ -2,5 +2,7 @@
   "name": "Semurug Cake Center — Luxury Artisanal Bakery",
   "description": "Premier artisanal cake boutique and patisserie e-commerce platform offering bespoke celebration cakes, wedding tiers, custom confectionary design, and express delivery.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

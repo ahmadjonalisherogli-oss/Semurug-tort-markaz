@@ -105,12 +105,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           <div className="flex items-center gap-2 text-xs text-[#895737] font-medium uppercase tracking-wider">
             <span>{product.category}</span>
             <span aria-hidden="true">·</span>
-            <span>Semurug Signature Collection</span>
+            <span>Semurug Maxsus Kolleksiyasi</span>
           </div>
           <button
             onClick={onClose}
             className="p-1.5 rounded-full hover:bg-[#EFE8DE] text-[#5E4D44] hover:text-[#2C2420] transition-colors"
-            aria-label="Close modal"
+            aria-label="Yopish"
           >
             <X className="w-5 h-5" />
           </button>
@@ -152,14 +152,14 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               <div className="p-4 rounded-2xl bg-[#F4EFEA] border border-[#E8DFD5] space-y-2 text-xs text-[#5E4D44]">
                 <div className="flex items-center gap-2 text-[#2C2420] font-semibold">
                   <ShieldCheck className="w-4 h-4 text-[#895737]" />
-                  <span>The Semurug Purity Standard</span>
+                  <span>Semurug Soflik Standarti</span>
                 </div>
                 <p>
-                  100% natural Normandy butter, cage-free organic eggs, and zero artificial preservation agents. Crafted fresh to order.
+                  100% tabiiy fransuz sarayog'i, yangi toza tuxum va sun'iy konservantlarsiz. Har bir buyurtma uchun yangi pishiriladi.
                 </p>
                 <div className="flex items-center gap-1.5 pt-1 text-[#895737]">
                   <Clock className="w-3.5 h-3.5" />
-                  <span>Preparation & Tempering: {product.preparation_time_hours} Hours</span>
+                  <span>Tayyorlash & yetiltirish vaqti: {product.preparation_time_hours} soat</span>
                 </div>
               </div>
             </div>
@@ -176,9 +176,9 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     <Star className="w-3.5 h-3.5 fill-[#C59B62] text-[#C59B62]" />
                     <span className="tabular-nums">{product.rating.toFixed(1)}</span>
                   </div>
-                  <span className="text-[#8C7A70]">({product.review_count || reviews.length} client reviews)</span>
+                  <span className="text-[#8C7A70]">({product.review_count || reviews.length} mijozlar sharhi)</span>
                   <span className="text-[#8C7A70]">·</span>
-                  <span className="text-[#895737] font-medium">{product.sales_count} celebratory orders</span>
+                  <span className="text-[#895737] font-medium">{product.sales_count} bayramona buyurtma</span>
                 </div>
               </div>
 
@@ -188,7 +188,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   ${selectedSize.price}
                 </span>
                 <span className="text-xs text-[#8C7A70]">
-                  ({selectedSize.weight_grams} grams)
+                  ({selectedSize.weight_grams} gramm)
                 </span>
               </div>
 
@@ -199,7 +199,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               {/* Size & Weight Options */}
               <div className="space-y-2 pt-2">
                 <label className="text-xs font-bold text-[#2C2420] uppercase tracking-wider block">
-                  Select Size & Servings:
+                  O'lcham & Porsiya Miqdorini Tanlang:
                 </label>
                 <div className="space-y-2">
                   {product.sizes.map((s, idx) => (
@@ -214,7 +214,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     >
                       <div>
                         <span className="font-semibold text-[#2C2420]">{s.label}</span>
-                        <span className="text-[#8C7A70] ml-2">({s.weight_grams}g)</span>
+                        <span className="text-[#8C7A70] ml-2">({s.weight_grams} g)</span>
                       </div>
                       <span className="font-serif font-bold text-sm text-[#2C2420] tabular-nums">
                         ${s.price}
@@ -227,7 +227,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               {/* Quantity Stepper & Buttons */}
               <div className="space-y-3 pt-3 border-t border-[#E8DFD5]">
                 <div className="flex items-center gap-4">
-                  <span className="text-xs font-semibold text-[#2C2420]">Quantity:</span>
+                  <span className="text-xs font-semibold text-[#2C2420]">Miqdor:</span>
                   <div className="flex items-center border border-[#E8DFD5] bg-white rounded-xl overflow-hidden">
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -257,12 +257,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     {added ? (
                       <>
                         <Check className="w-4 h-4" />
-                        <span>Added to Bag</span>
+                        <span>Savatga Qo'shildi</span>
                       </>
                     ) : (
                       <>
                         <ShoppingBag className="w-4 h-4" />
-                        <span>Add to Bag</span>
+                        <span>Savatga Qo'shish</span>
                       </>
                     )}
                   </button>
@@ -274,7 +274,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     }}
                     className="py-3 px-4 rounded-xl text-xs font-semibold bg-[#895737] hover:bg-[#72452B] text-white shadow-sm transition-all active:scale-95 text-center"
                   >
-                    Order Now (Checkout)
+                    Hoziroq Buyurtma Qilish
                   </button>
                 </div>
               </div>
@@ -282,7 +282,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               {/* Ingredients List */}
               <div className="pt-3 border-t border-[#E8DFD5] space-y-2">
                 <span className="text-xs font-bold text-[#2C2420] uppercase tracking-wider block">
-                  Artisanal Ingredients:
+                  Tabiiy Masalliqlar Tarkibi:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {product.ingredients.map((ing, i) => (
@@ -305,10 +305,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-serif text-xl font-bold text-[#2C2420]">
-                  Client Reviews & Patisserie Notes
+                  Mijozlar Fikrlari & Sharhlar
                 </h3>
                 <p className="text-xs text-[#5E4D44] mt-0.5">
-                  Verified feedback from our patisserie patrons
+                  Qandolatchilik shirinliklarimizni tatib ko'rgan xaridorlarimiz bahosi
                 </p>
               </div>
               <div className="text-right">
@@ -316,17 +316,17 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <Star className="w-4 h-4 fill-amber-500 text-amber-500" />
                   <span className="tabular-nums">{product.rating.toFixed(2)}</span>
                 </div>
-                <span className="text-[11px] text-[#8C7A70]">{reviews.length} reviews</span>
+                <span className="text-[11px] text-[#8C7A70]">{reviews.length} ta sharh</span>
               </div>
             </div>
 
             {/* Reviews List */}
             <div className="space-y-3">
               {loadingReviews ? (
-                <div className="py-6 text-center text-xs text-[#8C7A70]">Loading reviews...</div>
+                <div className="py-6 text-center text-xs text-[#8C7A70]">Sharhlar yuklanmoqda...</div>
               ) : reviews.length === 0 ? (
                 <div className="py-6 text-center text-xs text-[#8C7A70] bg-[#F4EFEA] rounded-2xl">
-                  Be the first to review this exquisite confection!
+                  Ushbu nafis tortga birinchi bo'lib sharh qoldiring!
                 </div>
               ) : (
                 reviews.map((rev) => (
@@ -335,7 +335,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-xs text-[#2C2420]">{rev.user_name}</span>
                         {rev.is_verified_purchase && (
-                          <span className="text-[10px] text-emerald-800 font-medium">· Verified Purchase</span>
+                          <span className="text-[10px] text-emerald-800 font-medium">· Tasdiqlangan Xarid</span>
                         )}
                       </div>
                       <div className="flex items-center gap-0.5">
@@ -361,7 +361,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             {/* Leave a review form */}
             <form onSubmit={handleReviewSubmit} className="p-5 rounded-2xl bg-[#F4EFEA] border border-[#E8DFD5] space-y-3">
               <h4 className="text-xs font-bold text-[#2C2420] uppercase tracking-wider">
-                Write a Review
+                Fikr va Sharh Qoldirish
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input
@@ -369,11 +369,11 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   required
                   value={reviewerName}
                   onChange={(e) => setReviewerName(e.target.value)}
-                  placeholder="Your Name (e.g. Lady Vivienne)"
+                  placeholder="Ismingiz (masalan: Malika Ziyo)"
                   className="px-3.5 py-2 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                 />
                 <div className="flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl border border-[#E8DFD5]">
-                  <span className="text-xs text-[#5E4D44]">Rating:</span>
+                  <span className="text-xs text-[#5E4D44]">Baho:</span>
                   <div className="flex items-center gap-1">
                     {[1, 2, 3, 4, 5].map((num) => (
                       <button
@@ -397,7 +397,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 rows={2}
                 value={reviewComment}
                 onChange={(e) => setReviewComment(e.target.value)}
-                placeholder="Share your tasting notes, sponge texture, and celebration feedback..."
+                placeholder="Tortning ta'mi, biskvit yumshoqligi va bayram taassurotlaringiz bilan bo'lishing..."
                 className="w-full px-3.5 py-2 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
               />
               <button
@@ -406,7 +406,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 className="py-2 px-5 bg-[#2C2420] hover:bg-[#895737] text-white text-xs font-medium rounded-xl transition-colors flex items-center gap-1.5 disabled:opacity-50"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>{isSubmittingReview ? 'Submitting...' : 'Post Review'}</span>
+                <span>{isSubmittingReview ? 'Yuborilmoqda...' : 'Sharhni Yuborish'}</span>
               </button>
             </form>
           </div>
@@ -415,7 +415,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           {relatedProducts.length > 0 && (
             <div className="pt-6 border-t border-[#E8DFD5] space-y-4">
               <h3 className="font-serif text-lg font-bold text-[#2C2420]">
-                Complementary Confections
+                Tavsiya Etiladigan Boshqa Tortlar
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {relatedProducts.map((rel) => (

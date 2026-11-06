@@ -68,13 +68,13 @@ export const ProductCatalogView: React.FC<ProductCatalogViewProps> = ({
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-xs font-semibold tracking-widest text-[#895737] uppercase">
             <Sparkles className="w-4 h-4 text-[#C59B62]" />
-            <span>The Complete Patisserie Ledger</span>
+            <span>To'liq Tortlar To'plami</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#2C2420]">
-            Boutique Cake Catalog
+            Boutique Tortlar Katalogi
           </h1>
           <p className="text-sm text-[#5E4D44] max-w-xl leading-relaxed">
-            Discover artisanal celebration centerpieces, hand-sculpted wedding tiers, and decadent dark chocolate ganaches.
+            Har bir bayram uchun mahorat bilan tayyorlangan shohona tortlar, to'y marosimi asarlari va qora shokoladli nozik shirinliklar.
           </p>
         </div>
 
@@ -89,7 +89,7 @@ export const ProductCatalogView: React.FC<ProductCatalogViewProps> = ({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search flavors, cake names, ingredients..."
+                placeholder="Tort nomi, ta'mi yoki masalliqlar bo'yicha qidirish..."
                 className="w-full pl-10 pr-4 py-2 bg-[#F4EFEA] border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
               />
             </div>
@@ -101,7 +101,7 @@ export const ProductCatalogView: React.FC<ProductCatalogViewProps> = ({
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="w-full px-3.5 py-2 bg-[#F4EFEA] border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
               >
-                <option value="all">All Confectionery Categories</option>
+                <option value="all">Barcha Toifalar</option>
                 {categories.map((c) => (
                   <option key={c.id} value={c.slug}>
                     {c.name}
@@ -117,19 +117,19 @@ export const ProductCatalogView: React.FC<ProductCatalogViewProps> = ({
                 onChange={(e) => setSortBy(e.target.value)}
                 className="w-full px-3 py-2 bg-[#F4EFEA] border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
               >
-                <option value="featured">Featured First</option>
-                <option value="popular">Most Popular</option>
-                <option value="rating">Highest Rated</option>
-                <option value="price_asc">Price: Low to High</option>
-                <option value="price_desc">Price: High to Low</option>
-                <option value="newest">Newest Creations</option>
+                <option value="featured">Tavsiya etilganlar</option>
+                <option value="popular">Eng ommabop</option>
+                <option value="rating">Yuqori baholangan</option>
+                <option value="price_asc">Narx: Arzondan qimmatga</option>
+                <option value="price_desc">Narx: Qimmatdan arzonga</option>
+                <option value="newest">Eng yangi ijodlar</option>
               </select>
             </div>
 
             {/* Price Max Slider (2 cols) */}
             <div className="lg:col-span-2 flex flex-col justify-center">
               <div className="flex justify-between text-[11px] text-[#5E4D44] mb-1">
-                <span>Max:</span>
+                <span>Maksimal:</span>
                 <span className="font-bold text-[#2C2420] tabular-nums font-mono">${maxPrice}</span>
               </div>
               <input
@@ -148,7 +148,7 @@ export const ProductCatalogView: React.FC<ProductCatalogViewProps> = ({
           {/* Quick Category Chips Strip */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-1 border-t border-[#F4EFEA] scrollbar-none">
             <span className="text-[11px] text-[#8C7A70] uppercase font-bold tracking-wider shrink-0 mr-1">
-              Category:
+              Toifa:
             </span>
             <button
               onClick={() => setSelectedCategory('all')}
@@ -158,7 +158,7 @@ export const ProductCatalogView: React.FC<ProductCatalogViewProps> = ({
                   : 'bg-[#F4EFEA] text-[#5E4D44] hover:bg-[#EFE8DE]'
               }`}
             >
-              All ({products.length})
+              Hammasi ({products.length})
             </button>
             {categories.map((c) => (
               <button
@@ -179,7 +179,7 @@ export const ProductCatalogView: React.FC<ProductCatalogViewProps> = ({
         {/* Results Counter */}
         <div className="flex items-center justify-between text-xs text-[#8C7A70]">
           <span>
-            Showing <strong className="text-[#2C2420]">{filteredProducts.length}</strong> cakes
+            Jami <strong className="text-[#2C2420]">{filteredProducts.length}</strong> ta tort ko'rsatilmoqda
           </span>
           {filteredProducts.length !== products.length && (
             <button
@@ -190,7 +190,7 @@ export const ProductCatalogView: React.FC<ProductCatalogViewProps> = ({
               }}
               className="text-[#895737] underline hover:text-[#2C2420]"
             >
-              Reset filters
+              Filtrlarni tozalash
             </button>
           )}
         </div>
@@ -199,10 +199,10 @@ export const ProductCatalogView: React.FC<ProductCatalogViewProps> = ({
         {filteredProducts.length === 0 ? (
           <div className="py-20 text-center bg-white rounded-3xl border border-[#E8DFD5] space-y-3 p-8">
             <h3 className="font-serif text-xl font-bold text-[#2C2420]">
-              No confectionery matched your filter
+              Qidiruvingizga mos tort topilmadi
             </h3>
             <p className="text-xs text-[#5E4D44] max-w-sm mx-auto">
-              Try adjusting your price ceiling or selecting another category to view our handcrafted artisanal cakes.
+              Iltimos, narx oralig'ini kengaytiring yoki boshqa toifani tanlab ko'ring.
             </p>
             <button
               onClick={() => {
@@ -212,7 +212,7 @@ export const ProductCatalogView: React.FC<ProductCatalogViewProps> = ({
               }}
               className="px-6 py-2.5 bg-[#2C2420] hover:bg-[#895737] text-white text-xs font-semibold rounded-xl transition-colors"
             >
-              Clear All Filters
+              Barcha Filtrlarni Bekor Qilish
             </button>
           </div>
         ) : (

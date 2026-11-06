@@ -7,6 +7,17 @@ interface CategoryFilterBarProps {
   onSelectCategory: (slug: string) => void;
 }
 
+const UZ_CATEGORY_NAMES: Record<string, string> = {
+  'Birthday Cakes': "Tug'ilgan Kun Tortlari",
+  'Wedding Cakes': "To'y Tortlari",
+  'Chocolate Cakes': "Shokoladli Tortlar",
+  'Fruit Cakes': "Mevali Tortlar",
+  'Cream Cakes': "Kremli Tortlar",
+  'Custom Cakes': "Maxsus Buyurtma Tortlar",
+  "Children's Cakes": "Bolalar Tortlari",
+  'Special Occasion Cakes': "Tantanali Marosim Tortlari",
+};
+
 export const CategoryFilterBar: React.FC<CategoryFilterBarProps> = ({
   categories,
   selectedCategory,
@@ -23,11 +34,12 @@ export const CategoryFilterBar: React.FC<CategoryFilterBarProps> = ({
               : 'text-[#5E4D44] hover:text-[#2C2420] hover:bg-[#EFE8DE]'
           }`}
         >
-          All Collections
+          Barcha Kolleksiyalar
         </button>
 
         {categories.map((cat) => {
           const isActive = selectedCategory === cat.slug;
+          const displayName = UZ_CATEGORY_NAMES[cat.name] || cat.name;
           return (
             <button
               key={cat.id}
@@ -38,7 +50,7 @@ export const CategoryFilterBar: React.FC<CategoryFilterBarProps> = ({
                   : 'text-[#5E4D44] hover:text-[#2C2420] hover:bg-[#EFE8DE]'
               }`}
             >
-              {cat.name}
+              {displayName}
             </button>
           );
         })}

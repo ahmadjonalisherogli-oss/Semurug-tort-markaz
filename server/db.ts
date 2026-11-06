@@ -1,6 +1,19 @@
 import fs from 'fs';
 import path from 'path';
-import { DatabaseSchema, Product, Category, Order, CustomOrder, Review, User, ShopSettings } from '../src/types.js';
+import {
+  DatabaseSchema,
+  Product,
+  Category,
+  Order,
+  CustomOrder,
+  Review,
+  User,
+  ShopSettings,
+  Inquiry,
+  Faq,
+  GalleryItem,
+  CustomCakeConfig
+} from '../src/types.js';
 import { initialDatabase } from './seedData.js';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
@@ -31,6 +44,10 @@ class Database {
           custom_orders: parsed.custom_orders || initialDatabase.custom_orders,
           users: parsed.users || initialDatabase.users,
           settings: parsed.settings || initialDatabase.settings,
+          inquiries: parsed.inquiries || initialDatabase.inquiries,
+          faqs: parsed.faqs || initialDatabase.faqs,
+          gallery: parsed.gallery || initialDatabase.gallery,
+          custom_options: parsed.custom_options || initialDatabase.custom_options,
         };
       }
     } catch (err) {
@@ -297,7 +314,13 @@ class Database {
 
   // Users & Auth
   public getUserByEmail(email: string): User | undefined {
-    return this.data.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    const normalized = email.toLowerCase().trim();
+    return this.data.users.find(u => {
+      const uEmail = u.email.toLowerCase();
+      if (uEmail === normalized) return true;
+      if (normalized === 'admin@semurug.uz' && u.role === 'admin') return true;
+      return false;
+    });
   }
 
   public getUserById(id: string): User | undefined {
@@ -338,6 +361,115 @@ class Database {
     return this.data.settings;
   }
 
+  // Inquiries
+  public getInquiries(): Inquiry[] {
+    return (this.data.inquiries || []).sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+  }
+
+  public createInquiry(data: Omit<Inquiry, 'id' | 'created_at' | 'status'>): Inquiry {
+    const newInquiry: Inquiry = {
+      ...data,
+      id: `inq_${Date.now()}`,
+      status: 'New',
+      created_at: new Date().toISOString()
+    };
+    if (!this.data.inquiries) this.data.inquiries = [];
+    this.data.inquiries.unshift(newInquiry);
+    this.save();
+    return newInquiry;
+  }
+
+  public updateInquiryStatus(id: string, status: Inquiry['status']): Inquiry | null {
+    const item = (this.data.inquiries || []).find(i => i.id === id);
+    if (!item) return null;
+    item.status = status;
+    this.save();
+    return item;
+  }
+
+  public deleteInquiry(id: string): boolean {
+    const initialLen = (this.data.inquiries || []).length;
+    this.data.inquiries = (this.data.inquiries || []).filter(i => i.id !== id);
+    if (this.data.inquiries.length !== initialLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  // FAQs
+  public getFaqs(): Faq[] {
+    return (this.data.faqs || []).sort((a, b) => a.display_order - b.display_order);
+  }
+
+  public createFaq(data: Omit<Faq, 'id'>): Faq {
+    const newFaq: Faq = {
+      id: `faq_${Date.now()}`,
+      ...data
+    };
+    if (!this.data.faqs) this.data.faqs = [];
+    this.data.faqs.push(newFaq);
+    this.save();
+    return newFaq;
+  }
+
+  public updateFaq(id: string, updates: Partial<Faq>): Faq | null {
+    const item = (this.data.faqs || []).find(f => f.id === id);
+    if (!item) return null;
+    Object.assign(item, updates);
+    this.save();
+    return item;
+  }
+
+  public deleteFaq(id: string): boolean {
+    const initialLen = (this.data.faqs || []).length;
+    this.data.faqs = (this.data.faqs || []).filter(f => f.id !== id);
+    if (this.data.faqs.length !== initialLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  // Gallery
+  public getGallery(): GalleryItem[] {
+    return (this.data.gallery || []).sort((a, b) => a.display_order - b.display_order);
+  }
+
+  public createGalleryItem(data: Omit<GalleryItem, 'id'>): GalleryItem {
+    const newItem: GalleryItem = {
+      id: `gal_${Date.now()}`,
+      ...data
+    };
+    if (!this.data.gallery) this.data.gallery = [];
+    this.data.gallery.push(newItem);
+    this.save();
+    return newItem;
+  }
+
+  public deleteGalleryItem(id: string): boolean {
+    const initialLen = (this.data.gallery || []).length;
+    this.data.gallery = (this.data.gallery || []).filter(g => g.id !== id);
+    if (this.data.gallery.length !== initialLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  // Custom Options
+  public getCustomOptions(): CustomCakeConfig {
+    return this.data.custom_options || initialDatabase.custom_options;
+  }
+
+  public updateCustomOptions(options: Partial<CustomCakeConfig>): CustomCakeConfig {
+    this.data.custom_options = { ...(this.data.custom_options || initialDatabase.custom_options), ...options };
+    this.save();
+    return this.data.custom_options;
+  }
+
   // Admin Dashboard Statistics
   public getAdminStats() {
     const totalOrders = this.data.orders.length;
@@ -346,6 +478,8 @@ class Database {
     const totalProducts = this.data.products.length;
     const pendingOrders = this.data.orders.filter(o => o.status === 'Pending').length +
                           this.data.custom_orders.filter(o => o.status === 'Pending').length;
+    const totalInquiries = (this.data.inquiries || []).length;
+    const unreadInquiries = (this.data.inquiries || []).filter(i => i.status === 'New').length;
 
     // Monthly sales calculation
     const monthlySalesMap: Record<string, number> = {};
@@ -363,9 +497,12 @@ class Database {
       totalCustomers,
       totalProducts,
       pendingOrders,
+      totalInquiries,
+      unreadInquiries,
       monthlySales: monthlySalesMap,
       recentOrders: this.data.orders.slice(0, 5),
-      recentCustomOrders: this.data.custom_orders.slice(0, 5)
+      recentCustomOrders: this.data.custom_orders.slice(0, 5),
+      recentInquiries: (this.data.inquiries || []).slice(0, 5)
     };
   }
 }

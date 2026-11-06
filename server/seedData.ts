@@ -500,16 +500,144 @@ export const initialDatabase: DatabaseSchema = {
   ],
   settings: {
     shop_name: 'SEMURUG CAKE CENTER',
-    phone: '+1 (555) 900-2253',
+    phone: '+998 (71) 200-1122',
     email: 'concierge@semurugcakes.com',
     telegram_url: 'https://t.me/semurug_cake_bot',
     instagram_url: 'https://instagram.com/semurug_cakes',
-    address: '77 Royal Pastry Boulevard, Boutique 4, Mayfair District',
-    working_hours: 'Monday – Sunday: 08:00 AM – 21:00 PM',
+    address: 'Toshkent sh., Mirobod tumani, Royal Pastry xiyoboni, 77-uy',
+    working_hours: 'Dushanba – Yakshanba: 08:00 – 21:00',
     delivery_fee: 15,
     free_delivery_threshold: 80,
-    banner_text: 'Complimentary white-glove hand delivery on luxury orders above $80 · Same-day pre-orders before 2 PM',
+    banner_text: '$80 dan yuqori premium buyurtmalar uchun maxsus kuryer orqali yetkazib berish bepul · Soat 14:00 gacha tezkor buyurtmalar',
     banner_active: true,
-    telegram_bot_enabled: true
+    telegram_bot_enabled: true,
+    hero_title: 'Hayotingizning Eng Go\'zal Lahzalari Uchun Mahorat Bilan Yaratilgan Tortlar',
+    hero_subtitle: 'Muhtasham ko\'p qavatli to\'y tortlaridan tortib, nozik qo\'lda bezatilgan tantana biskvitlarigacha — Semurug an\'anaviy fransuz qandolatchiligi va zamonaviy nafosatni uyg\'unlashtiradi.',
+    hero_badge: 'Yuqori Pâtisserie & Mualliflik Qandolatchiligi',
+    story_quote: 'Haqiqiy tort shunchaki shakar va un emas — bu hayotingizning eng qadrli tantanalarida muhrlanib qoladigan shirin xotiradir.'
+  },
+  inquiries: [
+    {
+      id: 'inq_001',
+      name: 'Lady Genevieve Dupond',
+      phone: '+1 (555) 234-8901',
+      email: 'genevieve@kensington.co.uk',
+      message: 'Looking to book a private tasting for a 3-tier anniversary gala for 60 guests on the 24th of this month. Would like to sample the champagne sponge.',
+      status: 'New',
+      created_at: '2026-11-04T16:20:00.000Z'
+    },
+    {
+      id: 'inq_002',
+      name: 'Arthur Pendelton',
+      phone: '+1 (555) 998-1122',
+      email: 'arthur.p@heritage-events.com',
+      message: 'Corporate milestone order inquiry for 5 identical Valrhona Nocturne cakes for an executive award ceremony.',
+      status: 'Read',
+      created_at: '2026-11-03T11:15:00.000Z'
+    }
+  ],
+  faqs: [
+    {
+      id: 'faq_1',
+      question: 'Tort buyurtmasini qancha vaqt oldin berish tavsiya etiladi?',
+      answer: 'Katalogimizdagi mualliflik tortlari uchun qandolatchilarimiz biskvitni pishirishi, to\'yintirishi va kremlarni yetiltirishi uchun kamida 12–24 soat oldin buyurtma berish tavsiya etiladi. Ko\'p qavatli to\'y tortlari va murakkab shaxsiy kompozitsiyalar uchun sanani 2-4 hafta oldin bron qilish maqsadga muvofiqdir.',
+      display_order: 1
+    },
+    {
+      id: 'faq_2',
+      question: 'Yetkazib berish paytida tort qanday himoyalanadi?',
+      answer: 'Barcha Semurug tortlari maxsus ikki qavatli termo-izolyatsiyalangan qutilarda va harorat nazorati ostidagi maxsus sovutgichli avtomobillarda yetkaziladi. Kuryerlarimiz shakar gullari, ko\'zgu jiloli ganash va nozik bezaklar bus-butun yetib borishini ta\'minlaydi.',
+      display_order: 2
+    },
+    {
+      id: 'faq_3',
+      question: 'Parhez yoki allergiyaga mos (glyutensiz, yong\'oqsiz) tortlar bormi?',
+      answer: 'Ha, talabingizga binoan glyutensiz un ishlatilmagan shokoladli tortlar va sut mahsulotlarisiz variantlarni tayyorlab beramiz. Ammo barcha mahsulotlarimiz yong\'oq, bodom va qaymoq ishlatiladigan professional ustaxonada tayyorlanishini inobatga oling.',
+      display_order: 3
+    },
+    {
+      id: 'faq_4',
+      question: 'To\'y arafasidagi juftliklar uchun shaxsiy degustatsiya mavjudmi?',
+      answer: 'Albatta. Bizning markazimizda bosh qandolatchimiz ishtirokida 4 xil biskvit, mevali konfiturlar va nozik kremlarni tatib ko\'rish uchun maxsus degustatsiya tashkil etiladi.',
+      display_order: 4
+    },
+    {
+      id: 'faq_5',
+      question: 'Buyurtma sanasini o\'zgartirish yoki bekor qilish tartibi qanday?',
+      answer: 'Buyurtma sanasini yetkazib berishdan 48 soat oldin bepul o\'zgartirishingiz mumkin. Murakkab qo\'l mehnati talab qiladigan maxsus buyurtmalar uchun kamida 5 kun oldin xabar berish so\'raladi.',
+      display_order: 5
+    }
+  ],
+  gallery: [
+    {
+      id: 'gal_1',
+      image: '/src/assets/images/hero_signature_cake_1793864720413.jpg',
+      caption: 'The Double Velvet Signature',
+      tag: '@semurug_cakes',
+      display_order: 1
+    },
+    {
+      id: 'gal_2',
+      image: '/src/assets/images/birthday_cake_artisan_1793864721039.jpg',
+      caption: 'Bourbon Vanilla & Macarons',
+      tag: '@semurug_cakes',
+      display_order: 2
+    },
+    {
+      id: 'gal_3',
+      image: '/src/assets/images/wedding_cake_tiered_1793864721265.jpg',
+      caption: 'Four-Tier Ivory Sugar Petals',
+      tag: '@semurug_cakes',
+      display_order: 3
+    },
+    {
+      id: 'gal_4',
+      image: '/src/assets/images/chocolate_truffle_cake_1793864721562.jpg',
+      caption: 'Valrhona Mirror Ganache Slice',
+      tag: '@semurug_cakes',
+      display_order: 4
+    },
+    {
+      id: 'gal_5',
+      image: '/src/assets/images/fruit_tart_cake_1793864721977.jpg',
+      caption: 'Passionfruit Soleil Tier',
+      tag: '@semurug_cakes',
+      display_order: 5
+    }
+  ],
+  custom_options: {
+    shapes: [
+      { id: 'round', name: 'Klassik Dumaloq Biskvit', desc: 'Silliq yoki relyefli fransuzcha palitrali pichoq bilan sayqallangan abadiy klassika', baseMultiplier: 1.0 },
+      { id: 'heart', name: 'Vintage Lambeth Yurakcha', desc: 'Viktoriya davri uslubidagi nafis relyeflar va marvaridlar', baseMultiplier: 1.15 },
+      { id: 'tiered', name: 'Ikki Qavatli Arxitektura', desc: 'Tantanali to\'ylar va yubileylar uchun ulug\'vor ikki qavatli kompozitsiya', baseMultiplier: 1.4 },
+      { id: 'square', name: 'Zamonaviy Kvadrat (Haute Square)', desc: 'Parij qandolatchiligi uslubidagi aniq minimalist qirralar', baseMultiplier: 1.1 }
+    ],
+    weights: [
+      { weight: 1.0, servings: '6-8 kishilik', price: 75 },
+      { weight: 1.5, servings: '10-12 kishilik', price: 105 },
+      { weight: 2.0, servings: '14-16 kishilik', price: 135 },
+      { weight: 3.0, servings: '22-26 kishilik', price: 195 },
+      { weight: 5.0, servings: '40-50 kishilik (Ikki qavatli)', price: 320 }
+    ],
+    flavors: [
+      { name: 'Madagaskar Burbon Vanili', desc: 'Tabiiy vanil urug\'lari bilan to\'yintirilgan nam va xushbo\'y biskvit' },
+      { name: '72% Valrhona Qora Trufel', desc: 'Venesuela kakaosi va qovurilgan fundukli qarsildoq qatlam' },
+      { name: 'Red Velvet Supreme', desc: 'Nozik kakao ohanglariga ega baxmal qizil biskvit' },
+      { name: 'Bronte Pista & Malina', desc: 'Sitsiliya pistasi va yangi terilgan malinali qandolat konfituri' },
+      { name: 'Tuzlangan Karamel & Yong\'oq', desc: 'Oltin karamel, fleur de sel va qovurilgan yong\'oq qatlamlari' }
+    ],
+    creams: [
+      { name: 'Shveytsariya Merenga Kremi', desc: 'Ipakdek mayin, yengil va mukammal silliq tekstura' },
+      { name: 'Oq Shokolad Ganashi', desc: '34% kakao-moyli baxmaldan oq shokolad ganashi' },
+      { name: 'Cream Cheese Chantilly', desc: 'Pishloqli nozik va bulutdek yengil chantilly kremi' },
+      { name: 'Valrhona Qora Shokoladli Ganash', desc: 'Chuqur va to\'yimli achchiq shokolad zavqi' }
+    ],
+    decorations: [
+      { name: '24K Iste\'mol Oltini & O\'rmon Mevalari', desc: 'Yangi uzilgan malina, qora smorodina va haqiqiy zarhal barglar', surcharge: 25 },
+      { name: 'Qo\'lda Yasalgan Shakar Gullari', desc: 'Har bir yaprog\'i qo\'lda ishlangan nafis gultojlar va evkalipt', surcharge: 45 },
+      { name: 'Bodomli Makarunlar & Karamel Toji', desc: 'Fransuzcha makarunlar va tillarang karamel to\'ri', surcharge: 30 },
+      { name: 'Vintage Lambeth Bezaklari & Marvaridlar', desc: 'Ko\'p qatlamli relyef bezaklar va iste\'mol marvaridlari', surcharge: 35 },
+      { name: 'Minimalist Tabiiy Vafli & Zig\'ir Qoplama', desc: 'Yengil vafli yelkanlari va quritilgan tabiiy gullar', surcharge: 20 }
+    ]
   }
 };

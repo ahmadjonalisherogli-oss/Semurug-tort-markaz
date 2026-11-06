@@ -171,6 +171,34 @@ app.post('/api/auth/login', (req: Request, res: Response) => {
   res.json({ user: safeUser, token });
 });
 
+app.post('/api/auth/admin-login', (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Admin elektron pochta va maxfiy parol talab qilinadi' });
+  }
+
+  const user = db.getUserByEmail(email);
+  if (!user || user.password_hash !== password) {
+    return res.status(401).json({ error: 'Noto\'g\'ri login yoki parol kiritildi' });
+  }
+
+  if (user.role !== 'admin') {
+    return res.status(403).json({
+      error: 'Ruxsat etilmadi: Ushbu portal faqat administratorlar uchun mo\'ljallangan. Oddiy xaridorlar xaridor loginidan foydalanishi kerak.'
+    });
+  }
+
+  const token = generateToken({
+    userId: user.id,
+    email: user.email,
+    role: user.role
+  });
+
+  const { password_hash, ...safeUser } = user;
+  res.json({ user: safeUser, token });
+});
+
 app.get('/api/auth/me', authenticateToken, (req: AuthRequest, res: Response) => {
   const user = db.getUserById(req.user!.userId);
   if (!user) {
@@ -525,6 +553,119 @@ app.get('/api/admin/stats', authenticateToken, requireAdmin, (_req: Request, res
 
 app.get('/api/admin/customers', authenticateToken, requireAdmin, (_req: Request, res: Response) => {
   res.json(db.getUsers());
+});
+
+// --- Inquiries Routes ---
+app.post('/api/inquiries', (req: Request, res: Response) => {
+  const { name, phone, email, message } = req.body;
+  if (!name || !phone || !message) {
+    return res.status(400).json({ error: 'Name, phone, and inquiry message are required' });
+  }
+
+  const inquiry = db.createInquiry({
+    name,
+    phone,
+    email: email || '',
+    message,
+  });
+
+  dispatchTelegramNotification(
+    `📩 YANGI XABAR / INQUIRY #${inquiry.id}\nFoydalanuvchi: ${inquiry.name}\nTel: ${inquiry.phone}\nEmail: ${inquiry.email}\nXabar: "${inquiry.message}"`
+  );
+
+  res.status(201).json(inquiry);
+});
+
+app.get('/api/inquiries', authenticateToken, requireAdmin, (_req: Request, res: Response) => {
+  res.json(db.getInquiries());
+});
+
+app.patch('/api/inquiries/:id/status', authenticateToken, requireAdmin, (req: Request, res: Response) => {
+  const { status } = req.body;
+  const updated = db.updateInquiryStatus(req.params.id, status);
+  if (!updated) {
+    return res.status(404).json({ error: 'Inquiry not found' });
+  }
+  res.json(updated);
+});
+
+app.delete('/api/inquiries/:id', authenticateToken, requireAdmin, (req: Request, res: Response) => {
+  const success = db.deleteInquiry(req.params.id);
+  if (!success) {
+    return res.status(404).json({ error: 'Inquiry not found' });
+  }
+  res.json({ message: 'Inquiry removed' });
+});
+
+// --- FAQs Routes ---
+app.get('/api/faqs', (_req: Request, res: Response) => {
+  res.json(db.getFaqs());
+});
+
+app.post('/api/faqs', authenticateToken, requireAdmin, (req: Request, res: Response) => {
+  const { question, answer, display_order } = req.body;
+  if (!question || !answer) {
+    return res.status(400).json({ error: 'Question and answer are required' });
+  }
+  const faq = db.createFaq({
+    question,
+    answer,
+    display_order: display_order || 99,
+  });
+  res.status(201).json(faq);
+});
+
+app.put('/api/faqs/:id', authenticateToken, requireAdmin, (req: Request, res: Response) => {
+  const updated = db.updateFaq(req.params.id, req.body);
+  if (!updated) {
+    return res.status(404).json({ error: 'FAQ not found' });
+  }
+  res.json(updated);
+});
+
+app.delete('/api/faqs/:id', authenticateToken, requireAdmin, (req: Request, res: Response) => {
+  const success = db.deleteFaq(req.params.id);
+  if (!success) {
+    return res.status(404).json({ error: 'FAQ not found' });
+  }
+  res.json({ message: 'FAQ removed' });
+});
+
+// --- Gallery Routes ---
+app.get('/api/gallery', (_req: Request, res: Response) => {
+  res.json(db.getGallery());
+});
+
+app.post('/api/gallery', authenticateToken, requireAdmin, (req: Request, res: Response) => {
+  const { image, caption, tag, display_order } = req.body;
+  if (!image) {
+    return res.status(400).json({ error: 'Image URL is required' });
+  }
+  const item = db.createGalleryItem({
+    image,
+    caption: caption || 'Semurug Patisserie Highlight',
+    tag: tag || '@semurug_cakes',
+    display_order: display_order || 99,
+  });
+  res.status(201).json(item);
+});
+
+app.delete('/api/gallery/:id', authenticateToken, requireAdmin, (req: Request, res: Response) => {
+  const success = db.deleteGalleryItem(req.params.id);
+  if (!success) {
+    return res.status(404).json({ error: 'Gallery item not found' });
+  }
+  res.json({ message: 'Gallery item deleted' });
+});
+
+// --- Custom Cake Options Routes ---
+app.get('/api/custom-cake-options', (_req: Request, res: Response) => {
+  res.json(db.getCustomOptions());
+});
+
+app.put('/api/custom-cake-options', authenticateToken, requireAdmin, (req: Request, res: Response) => {
+  const updated = db.updateCustomOptions(req.body);
+  res.json(updated);
 });
 
 // ==========================================

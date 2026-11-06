@@ -92,13 +92,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
         <div className="px-6 py-4 border-b border-[#E8DFD5] flex items-center justify-between bg-[#FAF7F2] shrink-0">
           <div className="flex items-center gap-2">
             <h2 className="font-serif text-lg font-bold text-[#2C2420]">
-              {confirmedOrder ? 'Order Confirmation' : 'Complete Your Order'}
+              {confirmedOrder ? 'Buyurtma Tasdig\'i' : 'Buyurtmani Rasmiylashtirish'}
             </h2>
           </div>
           <button
             onClick={onClose}
             className="p-1.5 rounded-full hover:bg-[#EFE8DE] text-[#5E4D44] hover:text-[#2C2420] transition-colors"
-            aria-label="Close checkout"
+            aria-label="Yopish"
           >
             <X className="w-5 h-5" />
           </button>
@@ -115,35 +115,35 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
 
               <div>
                 <span className="text-xs font-semibold text-[#895737] uppercase tracking-widest block">
-                  Thank You for Your Trust
+                  Ishonchingiz Uchun Rahmat
                 </span>
                 <h3 className="font-serif text-3xl font-bold text-[#2C2420] mt-1">
-                  Order Successfully Placed
+                  Buyurtmangiz Muvaffaqiyatli Qabul Qilindi
                 </h3>
                 <div className="mt-3 inline-block px-4 py-1.5 bg-[#2C2420] text-[#D4A373] text-sm font-mono font-bold rounded-xl tracking-wider">
-                  Order #{confirmedOrder.order_number}
+                  Buyurtma #{confirmedOrder.order_number}
                 </div>
               </div>
 
               <div className="max-w-md mx-auto p-4 rounded-2xl bg-white border border-[#E8DFD5] text-left text-xs space-y-2 text-[#5E4D44]">
                 <div className="flex justify-between py-1 border-b border-[#F4EFEA]">
-                  <span>Recipient:</span>
+                  <span>Qabul qiluvchi:</span>
                   <strong className="text-[#2C2420]">{confirmedOrder.customer_name}</strong>
                 </div>
                 <div className="flex justify-between py-1 border-b border-[#F4EFEA]">
-                  <span>Delivery Date:</span>
+                  <span>Yetkazish sanasi:</span>
                   <strong className="text-[#2C2420]">{confirmedOrder.delivery_date} ({confirmedOrder.delivery_time})</strong>
                 </div>
                 <div className="flex justify-between py-1 border-b border-[#F4EFEA]">
-                  <span>Destination:</span>
+                  <span>Yetkazish manzili:</span>
                   <strong className="text-[#2C2420]">{confirmedOrder.delivery_address}</strong>
                 </div>
                 <div className="flex justify-between py-1 border-b border-[#F4EFEA]">
-                  <span>Total Investment:</span>
+                  <span>Jami to'lov:</span>
                   <strong className="text-[#2C2420] font-serif text-sm">${confirmedOrder.total}</strong>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span>Current Status:</span>
+                  <span>Hozirgi holat:</span>
                   <span className="px-2 py-0.5 bg-amber-100 text-amber-900 rounded font-semibold text-[11px]">
                     {confirmedOrder.status}
                   </span>
@@ -151,7 +151,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
               </div>
 
               <p className="text-xs text-[#5E4D44] max-w-sm mx-auto">
-                Our pastry chef has received your requisition and has begun tempering ingredients. You can track preparation status anytime using your order number.
+                Qandolatchilarimiz buyurtmangizni qabul qilib, tayyorgarlikni boshladi. Buyurtma raqamingiz orqali holatni istalgan paytda kuzatishingiz mumkin.
               </p>
 
               <div className="pt-2">
@@ -159,7 +159,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   onClick={onClose}
                   className="px-8 py-3 bg-[#2C2420] hover:bg-[#895737] text-white text-xs font-semibold rounded-xl shadow-md transition-colors"
                 >
-                  Return to Boutique
+                  Bosh Sahifaga Qaytish
                 </button>
               </div>
             </div>
@@ -170,7 +170,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
               {/* Order Items Snapshot */}
               <div className="p-4 bg-[#F4EFEA] rounded-2xl border border-[#E8DFD5] space-y-2">
                 <div className="flex justify-between text-xs font-bold text-[#2C2420] uppercase tracking-wider">
-                  <span>Order Items ({items.length})</span>
+                  <span>Buyurtma Mahsulotlari ({items.length})</span>
                   <span>${subtotal}</span>
                 </div>
                 <div className="space-y-1.5 max-h-32 overflow-y-auto">
@@ -191,34 +191,34 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
               <div className="space-y-4">
                 <h3 className="font-serif text-base font-bold text-[#2C2420] flex items-center gap-2">
                   <Truck className="w-4 h-4 text-[#895737]" />
-                  <span>Delivery Destination & Recipient</span>
+                  <span>Yetkazib Berish Manzili & Qabul Qiluvchi</span>
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-xs font-medium text-[#5E4D44] block mb-1">
-                      Full Name *
+                      To'liq Ism Sharifingiz *
                     </label>
                     <input
                       type="text"
                       required
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      placeholder="Charlotte Vance"
+                      placeholder="Malika Ziyo"
                       className="w-full px-3.5 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                     />
                   </div>
 
                   <div>
                     <label className="text-xs font-medium text-[#5E4D44] block mb-1">
-                      Phone Number (for Courier Arrival) *
+                      Telefon Raqami (Kuryer bog'lanishi uchun) *
                     </label>
                     <input
                       type="tel"
                       required
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+1 (555) 234-8901"
+                      placeholder="+998 90 123 45 67"
                       className="w-full px-3.5 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                     />
                   </div>
@@ -227,27 +227,27 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-xs font-medium text-[#5E4D44] block mb-1">
-                      Email for Receipt
+                      Elektron Pochta (Chek uchun)
                     </label>
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="charlotte@example.com"
+                      placeholder="mijoz@example.com"
                       className="w-full px-3.5 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                     />
                   </div>
 
                   <div>
                     <label className="text-xs font-medium text-[#5E4D44] block mb-1">
-                      Delivery Address *
+                      Aniq Yetkazish Manzili *
                     </label>
                     <input
                       type="text"
                       required
                       value={deliveryAddress}
                       onChange={(e) => setDeliveryAddress(e.target.value)}
-                      placeholder="45 Kensington Crescent, Suite 4B"
+                      placeholder="Toshkent sh., Navoiy ko'chasi 45-uy, 4-xonadon"
                       className="w-full px-3.5 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                     />
                   </div>
@@ -257,7 +257,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   <div>
                     <label className="text-xs font-medium text-[#5E4D44] block mb-1 flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5 text-[#895737]" />
-                      <span>Delivery Date *</span>
+                      <span>Yetkazish Sanasi *</span>
                     </label>
                     <input
                       type="date"
@@ -271,31 +271,31 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   <div>
                     <label className="text-xs font-medium text-[#5E4D44] block mb-1 flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-[#895737]" />
-                      <span>Delivery Window</span>
+                      <span>Yetkazish Vaqti Oralig'i</span>
                     </label>
                     <select
                       value={deliveryTime}
                       onChange={(e) => setDeliveryTime(e.target.value)}
                       className="w-full px-3 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                     >
-                      <option value="10:00 - 12:00">10:00 - 12:00 (Morning)</option>
-                      <option value="12:00 - 14:00">12:00 - 14:00 (Midday)</option>
-                      <option value="14:00 - 16:00">14:00 - 16:00 (Afternoon)</option>
-                      <option value="16:00 - 18:00">16:00 - 18:00 (Late Afternoon)</option>
-                      <option value="18:00 - 20:00">18:00 - 20:00 (Evening)</option>
+                      <option value="10:00 - 12:00">10:00 - 12:00 (Ertalab)</option>
+                      <option value="12:00 - 14:00">12:00 - 14:00 (Tushda)</option>
+                      <option value="14:00 - 16:00">14:00 - 16:00 (Tushdan keyin)</option>
+                      <option value="16:00 - 18:00">16:00 - 18:00 (Kechki payt)</option>
+                      <option value="18:00 - 20:00">18:00 - 20:00 (Kechqurun)</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
                   <label className="text-xs font-medium text-[#5E4D44] block mb-1">
-                    Special Hand-Delivery Instructions
+                    Kuryer Uchun Maxsus Izohlar
                   </label>
                   <textarea
                     rows={2}
                     value={orderNotes}
                     onChange={(e) => setOrderNotes(e.target.value)}
-                    placeholder="Gate code, concierge instructions, gift wrapping note..."
+                    placeholder="Domofon kodi, eshik qo'ng'irog'i yoki tabrik qutlov yozuvi..."
                     className="w-full px-3.5 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                   />
                 </div>
@@ -305,7 +305,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
               <div className="space-y-3 pt-2">
                 <h3 className="font-serif text-base font-bold text-[#2C2420] flex items-center gap-2">
                   <CreditCard className="w-4 h-4 text-[#895737]" />
-                  <span>Payment Settlement Method</span>
+                  <span>To'lov Usulini Tanlang</span>
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -318,8 +318,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                         : 'border-[#E8DFD5] bg-[#F4EFEA] hover:bg-white'
                     }`}
                   >
-                    <div className="font-semibold text-xs text-[#2C2420]">Card on Delivery</div>
-                    <div className="text-[10px] text-[#8C7A70] mt-0.5">Contactless POS at doorstep</div>
+                    <div className="font-semibold text-xs text-[#2C2420]">Yetkazilganda Karta orqali</div>
+                    <div className="text-[10px] text-[#8C7A70] mt-0.5">Eshik oldida POS terminal</div>
                   </button>
 
                   <button
@@ -331,8 +331,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                         : 'border-[#E8DFD5] bg-[#F4EFEA] hover:bg-white'
                     }`}
                   >
-                    <div className="font-semibold text-xs text-[#2C2420]">Cash on Delivery</div>
-                    <div className="text-[10px] text-[#8C7A70] mt-0.5">Pay upon cake inspection</div>
+                    <div className="font-semibold text-xs text-[#2C2420]">Yetkazilganda Naqd pulda</div>
+                    <div className="text-[10px] text-[#8C7A70] mt-0.5">Tortni ko'rib to'lash</div>
                   </button>
 
                   <button
@@ -344,8 +344,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                         : 'border-[#E8DFD5] bg-[#F4EFEA] hover:bg-white'
                     }`}
                   >
-                    <div className="font-semibold text-xs text-[#2C2420]">Online Card / Apple Pay</div>
-                    <div className="text-[10px] text-[#8C7A70] mt-0.5">Prepaid instant confirmation</div>
+                    <div className="font-semibold text-xs text-[#2C2420]">Onlayn Karta / Payme</div>
+                    <div className="text-[10px] text-[#8C7A70] mt-0.5">Tezkor xavfsiz to'lov</div>
                   </button>
                 </div>
               </div>
@@ -354,17 +354,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
               <div className="pt-4 border-t border-[#E8DFD5] space-y-3">
                 <div className="space-y-1.5 text-xs text-[#5E4D44]">
                   <div className="flex justify-between">
-                    <span>Subtotal:</span>
+                    <span>Oraliq summa:</span>
                     <span className="font-bold text-[#2C2420] tabular-nums font-mono">${subtotal}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>White-Glove Temperature Controlled Delivery:</span>
+                    <span>Ehtiyotkor yetkazib berish:</span>
                     <span className="tabular-nums font-mono">
-                      {deliveryFee === 0 ? <span className="text-emerald-800 font-semibold">Complimentary</span> : `$${deliveryFee}`}
+                      {deliveryFee === 0 ? <span className="text-emerald-800 font-semibold">Bepul ($0)</span> : `$${deliveryFee}`}
                     </span>
                   </div>
                   <div className="flex justify-between text-base font-serif font-bold text-[#2C2420] pt-2 border-t border-[#E8DFD5]">
-                    <span>Total Amount Payable:</span>
+                    <span>Jami to'lanadigan summa:</span>
                     <span className="tabular-nums">${total}</span>
                   </div>
                 </div>
@@ -375,7 +375,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, o
                   className="w-full py-4 px-6 bg-[#2C2420] hover:bg-[#895737] text-white text-xs font-semibold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
                 >
                   <ShieldCheck className="w-4 h-4 text-[#D4A373]" />
-                  <span>{isSubmitting ? 'Securing Your Order...' : `Confirm Order · $${total}`}</span>
+                  <span>{isSubmitting ? 'Buyurtma rasmiylashtirilmoqda...' : `Buyurtmani Tasdiqlash · $${total}`}</span>
                 </button>
               </div>
 

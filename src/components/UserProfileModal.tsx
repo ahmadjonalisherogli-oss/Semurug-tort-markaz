@@ -47,7 +47,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
     setIsUpdating(true);
     try {
       await updateProfile({ full_name: fullName, phone, address });
-      alert('Profile details updated successfully');
+      alert('Profil ma\'lumotlari muvaffaqiyatli saqlandi');
     } catch (err: any) {
       alert(err.message);
     } finally {
@@ -64,13 +64,13 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           <div className="flex items-center gap-2">
             <UserIcon className="w-5 h-5 text-[#895737]" />
             <h2 className="font-serif text-lg font-bold text-[#2C2420]">
-              My Patron Profile
+              Mening Shaxsiy Kabinetim
             </h2>
           </div>
           <button
             onClick={onClose}
             className="p-1.5 rounded-full hover:bg-[#EFE8DE] text-[#5E4D44] hover:text-[#2C2420] transition-colors"
-            aria-label="Close profile"
+            aria-label="Profilni yopish"
           >
             <X className="w-5 h-5" />
           </button>
@@ -90,7 +90,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 <span className="text-xs text-[#8C7A70]">{user.email}</span>
                 {user.role === 'admin' && (
                   <span className="ml-2 text-[10px] bg-[#2C2420] text-[#D4A373] px-2 py-0.5 rounded font-bold uppercase">
-                    Admin Privileges
+                    Administrator Huquqi
                   </span>
                 )}
               </div>
@@ -104,19 +104,19 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               className="px-3.5 py-1.5 border border-[#E8DFD5] hover:bg-rose-50 text-rose-700 hover:border-rose-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors"
             >
               <LogOut className="w-3.5 h-3.5" />
-              <span>Sign Out</span>
+              <span>Chiqish</span>
             </button>
           </div>
 
           {/* Profile Editing Form */}
           <form onSubmit={handleUpdate} className="p-5 bg-white rounded-2xl border border-[#E8DFD5] space-y-3.5 shadow-sm text-xs">
             <h4 className="font-serif text-sm font-bold text-[#2C2420] uppercase tracking-wider">
-              Contact & Preferred Delivery Details
+              Aloqa va Yetkazib Berish Manzili
             </h4>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="font-medium text-[#5E4D44] block mb-1">Full Name</label>
+                <label className="font-medium text-[#5E4D44] block mb-1">To'liq Ism</label>
                 <input
                   type="text"
                   value={fullName}
@@ -125,7 +125,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 />
               </div>
               <div>
-                <label className="font-medium text-[#5E4D44] block mb-1">Phone Number</label>
+                <label className="font-medium text-[#5E4D44] block mb-1">Telefon Raqami</label>
                 <input
                   type="tel"
                   value={phone}
@@ -136,7 +136,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             </div>
 
             <div>
-              <label className="font-medium text-[#5E4D44] block mb-1">Default Delivery Address</label>
+              <label className="font-medium text-[#5E4D44] block mb-1">Asosiy Yetkazib Berish Manzili</label>
               <input
                 type="text"
                 value={address}
@@ -152,7 +152,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 className="px-4 py-2 bg-[#2C2420] hover:bg-[#895737] text-white rounded-xl font-semibold flex items-center gap-1.5 transition-colors"
               >
                 <Save className="w-3.5 h-3.5" />
-                <span>{isUpdating ? 'Saving...' : 'Update Details'}</span>
+                <span>{isUpdating ? 'Saqlanmoqda...' : 'Ma\'lumotlarni Saqlash'}</span>
               </button>
             </div>
           </form>
@@ -161,14 +161,14 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           <div className="space-y-3">
             <h4 className="font-serif text-base font-bold text-[#2C2420] flex items-center gap-2">
               <Package className="w-4 h-4 text-[#895737]" />
-              <span>Your Orders & Celebrations</span>
+              <span>Mening Buyurtmalarim & Tantanalar</span>
             </h4>
 
             {loadingOrders ? (
-              <div className="text-center py-6 text-xs text-[#8C7A70]">Loading your order archive...</div>
+              <div className="text-center py-6 text-xs text-[#8C7A70]">Buyurtmalar tarixi yuklanmoqda...</div>
             ) : orders.length === 0 && customOrders.length === 0 ? (
               <div className="p-6 text-center bg-white rounded-2xl border border-[#E8DFD5] text-xs text-[#8C7A70]">
-                You have not placed any orders yet. Explore our handcrafted collection to reserve your first cake!
+                Siz hali buyurtma bermagansiz. Ilk mualliflik tortingizni tanlash uchun kolleksiyamizni ko'rib chiqing!
               </div>
             ) : (
               <div className="space-y-2.5">
@@ -188,7 +188,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                         {o.items.map(it => `${it.quantity}x ${it.name}`).join(', ')}
                       </div>
                       <div className="text-[10px] text-[#8C7A70] mt-0.5">
-                        Scheduled: {o.delivery_date} ({o.delivery_time})
+                        Yetkazish: {o.delivery_date} ({o.delivery_time})
                       </div>
                     </div>
 
@@ -203,7 +203,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                         }}
                         className="px-3 py-1.5 bg-[#FAF7F2] hover:bg-[#EFE8DE] border border-[#E8DFD5] rounded-xl text-xs font-semibold text-[#895737] transition-colors"
                       >
-                        Track Status
+                        Holatni Kuzatish
                       </button>
                     </div>
                   </div>
@@ -219,7 +219,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                       <div className="flex items-center gap-2">
                         <strong className="font-mono text-[#895737]">#{c.order_number}</strong>
                         <span className="px-2 py-0.5 bg-amber-100 text-amber-900 rounded font-semibold text-[10px]">
-                          Bespoke: {c.status}
+                          Maxsus Buyurtma: {c.status}
                         </span>
                       </div>
                       <div className="text-[11px] text-[#5E4D44] mt-1">

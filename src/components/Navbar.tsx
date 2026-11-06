@@ -7,6 +7,7 @@ interface NavbarProps {
   onOpenSearch: () => void;
   onOpenOrderTracker: () => void;
   onOpenAdmin: () => void;
+  onOpenAdminLogin: () => void;
   onOpenProfile: () => void;
   activeView: string;
   setActiveView: (view: string) => void;
@@ -16,6 +17,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenSearch,
   onOpenOrderTracker,
   onOpenAdmin,
+  onOpenAdminLogin,
   onOpenProfile,
   activeView,
   setActiveView,
@@ -58,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               activeView === 'catalog' ? 'text-[#2C2420] font-semibold border-b-2 border-[#895737] pb-0.5' : ''
             }`}
           >
-            Cakes
+            Tortlar
           </button>
           <button
             onClick={() => handleNavClick('custom')}
@@ -66,25 +68,25 @@ export const Navbar: React.FC<NavbarProps> = ({
               activeView === 'custom' ? 'text-[#2C2420] font-semibold border-b-2 border-[#895737] pb-0.5' : ''
             }`}
           >
-            Custom Atelier
+            Maxsus Buyurtma
           </button>
           <button
             onClick={() => handleNavClick('home', 'heritage')}
             className="whitespace-nowrap shrink-0 hover:text-[#2C2420] transition-colors"
           >
-            Our Heritage
+            Bizning Merosimiz
           </button>
           <button
             onClick={() => handleNavClick('home', 'reviews')}
             className="whitespace-nowrap shrink-0 hover:text-[#2C2420] transition-colors"
           >
-            Reviews
+            Mijozlar Fikrlari
           </button>
           <button
             onClick={() => handleNavClick('home', 'contact')}
             className="whitespace-nowrap shrink-0 hover:text-[#2C2420] transition-colors"
           >
-            Boutique & Location
+            Manzil & Aloqa
           </button>
         </nav>
 
@@ -94,8 +96,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenSearch}
             className="p-2 text-[#5E4D44] hover:text-[#2C2420] hover:bg-[#F0EAE1] rounded-full transition-colors"
-            title="Search cakes"
-            aria-label="Search cakes"
+            title="Tortlarni qidirish"
+            aria-label="Tortlarni qidirish"
           >
             <Search className="w-5 h-5" />
           </button>
@@ -104,13 +106,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenOrderTracker}
             className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#5E4D44] hover:text-[#2C2420] hover:bg-[#F0EAE1] rounded-lg transition-colors whitespace-nowrap"
-            title="Track my order"
+            title="Buyurtmani kuzatish"
           >
             <Package className="w-4 h-4 text-[#895737]" />
-            <span>Track Order</span>
+            <span>Buyurtmani Kuzatish</span>
           </button>
 
-          {/* Admin Switch (if admin or demo trigger) */}
+          {/* Admin Switch or Dedicated Admin Login */}
           {user?.role === 'admin' ? (
             <button
               onClick={onOpenAdmin}
@@ -118,29 +120,42 @@ export const Navbar: React.FC<NavbarProps> = ({
               title="Admin Dashboard"
             >
               <Shield className="w-3.5 h-3.5 text-[#D4A373]" />
-              <span>Admin</span>
+              <span>Admin Panel</span>
             </button>
-          ) : null}
+          ) : (
+            <button
+              onClick={onOpenAdminLogin}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-[#2C2420]/5 hover:bg-[#2C2420] text-[#2C2420] hover:text-[#FAF7F2] rounded-lg transition-all whitespace-nowrap border border-[#2C2420]/15"
+              title="Administrator sifatida alohida kirish"
+            >
+              <Shield className="w-3.5 h-3.5 text-[#895737]" />
+              <span>Admin Kirish</span>
+            </button>
+          )}
 
-          {/* User Account / Sign In */}
+          {/* User Account / Customer Sign In */}
           {user ? (
             <button
               onClick={onOpenProfile}
-              className="flex items-center gap-1.5 p-2 text-[#5E4D44] hover:text-[#2C2420] hover:bg-[#F0EAE1] rounded-full transition-colors"
+              className="flex items-center gap-1.5 p-1.5 sm:px-2.5 sm:py-1.5 text-[#5E4D44] hover:text-[#2C2420] hover:bg-[#F0EAE1] rounded-full sm:rounded-xl transition-colors"
               title={user.full_name}
             >
               <div className="w-6 h-6 rounded-full bg-[#895737] text-white flex items-center justify-center text-xs font-bold uppercase">
                 {user.full_name.charAt(0)}
               </div>
+              <span className="hidden md:inline text-xs font-medium truncate max-w-[100px]">
+                {user.full_name.split(' ')[0]}
+              </span>
             </button>
           ) : (
             <button
               onClick={() => setIsAuthModalOpen(true)}
-              className="p-2 text-[#5E4D44] hover:text-[#2C2420] hover:bg-[#F0EAE1] rounded-full transition-colors"
-              title="Sign In / Register"
-              aria-label="Sign In"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#2C2420] bg-white hover:bg-[#F0EAE1] rounded-lg border border-[#E8DFD5] transition-colors whitespace-nowrap"
+              title="Xaridor Kirish / Ro'yxatdan o'tish"
+              aria-label="Xaridor Kirish"
             >
-              <UserIcon className="w-5 h-5" />
+              <UserIcon className="w-4 h-4 text-[#895737]" />
+              <span className="hidden sm:inline">Kirish</span>
             </button>
           )}
 
@@ -177,31 +192,31 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleNavClick('catalog')}
               className="text-left py-2 hover:text-[#895737] transition-colors border-b border-[#F0EAE1]"
             >
-              All Cakes & Catalog
+              Barcha Tortlar Katalogi
             </button>
             <button
               onClick={() => handleNavClick('custom')}
               className="text-left py-2 hover:text-[#895737] transition-colors border-b border-[#F0EAE1]"
             >
-              Custom Atelier Studio
+              Maxsus Buyurtma Studiyasi
             </button>
             <button
               onClick={() => handleNavClick('home', 'heritage')}
               className="text-left py-2 hover:text-[#895737] transition-colors border-b border-[#F0EAE1]"
             >
-              Our Heritage & Quality
+              Bizning Merosimiz & Sifat
             </button>
             <button
               onClick={() => handleNavClick('home', 'reviews')}
               className="text-left py-2 hover:text-[#895737] transition-colors border-b border-[#F0EAE1]"
             >
-              Customer Reviews
+              Mijozlar Fikrlari
             </button>
             <button
               onClick={() => handleNavClick('home', 'contact')}
               className="text-left py-2 hover:text-[#895737] transition-colors border-b border-[#F0EAE1]"
             >
-              Boutique Location & Hours
+              Do'kon Manzili & Ish Tartibi
             </button>
             <button
               onClick={() => {
@@ -211,39 +226,66 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="text-left py-2 hover:text-[#895737] transition-colors flex items-center gap-2"
             >
               <Package className="w-4 h-4 text-[#895737]" />
-              <span>Track Your Order</span>
+              <span>Buyurtmangizni Kuzatish</span>
             </button>
           </div>
 
           <div className="pt-2 flex items-center justify-between border-t border-[#E8DFD5]">
             {user ? (
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#895737] text-white flex items-center justify-center font-bold">
-                  {user.full_name.charAt(0)}
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#895737] text-white flex items-center justify-center font-bold">
+                    {user.full_name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-[#2C2420]">{user.full_name}</p>
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        onOpenProfile();
+                      }}
+                      className="text-xs text-[#895737] underline"
+                    >
+                      Mening profilim
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-[#2C2420]">{user.full_name}</p>
+
+                {user.role === 'admin' && (
                   <button
                     onClick={() => {
                       setMobileMenuOpen(false);
-                      onOpenProfile();
+                      onOpenAdmin();
                     }}
-                    className="text-xs text-[#895737] underline"
+                    className="px-3 py-1.5 bg-[#2C2420] text-[#FAF7F2] text-xs font-semibold rounded-lg flex items-center gap-1.5"
                   >
-                    View Account
+                    <Shield className="w-3.5 h-3.5 text-[#D4A373]" />
+                    <span>Admin Panel</span>
                   </button>
-                </div>
+                )}
               </div>
             ) : (
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setIsAuthModalOpen(true);
-                }}
-                className="w-full py-2.5 px-4 bg-[#2C2420] text-[#FAF7F2] text-sm font-medium rounded-xl text-center"
-              >
-                Sign In / Create Account
-              </button>
+              <div className="w-full space-y-2">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setIsAuthModalOpen(true);
+                  }}
+                  className="w-full py-2.5 px-4 bg-[#2C2420] hover:bg-[#895737] text-[#FAF7F2] text-xs font-semibold rounded-xl text-center shadow-sm"
+                >
+                  Xaridor Kirish / Ro'yxatdan o'tish
+                </button>
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenAdminLogin();
+                  }}
+                  className="w-full py-2.5 px-4 bg-[#F4EFEA] hover:bg-[#EFE8DE] text-[#2C2420] text-xs font-semibold rounded-xl border border-[#E8DFD5] text-center flex items-center justify-center gap-2"
+                >
+                  <Shield className="w-3.5 h-3.5 text-[#895737]" />
+                  <span>Administrator Kirish Portali</span>
+                </button>
+              </div>
             )}
           </div>
         </div>

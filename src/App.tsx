@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { AuthProvider } from './context/AuthContext.js';
+import { AuthProvider, useAuth } from './context/AuthContext.js';
 import { CartProvider, useCart } from './context/CartContext.js';
 import { AnnouncementBar } from './components/AnnouncementBar.js';
 import { Navbar } from './components/Navbar.js';
@@ -18,6 +18,7 @@ import { CartDrawer } from './components/CartDrawer.js';
 import { CheckoutModal } from './components/CheckoutModal.js';
 import { OrderTrackerModal } from './components/OrderTrackerModal.js';
 import { AuthModal } from './components/AuthModal.js';
+import { AdminLoginModal } from './components/AdminLoginModal.js';
 import { AdminDashboard } from './components/AdminDashboard.js';
 import { UserProfileModal } from './components/UserProfileModal.js';
 import { SearchModal } from './components/SearchModal.js';
@@ -51,6 +52,7 @@ function MainApp() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const { addToCart } = useCart();
+  const { user, setIsAdminLoginModalOpen } = useAuth();
 
   const loadInitialData = async () => {
     try {
@@ -108,6 +110,7 @@ function MainApp() {
           setIsTrackerOpen(true);
         }}
         onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenAdminLogin={() => setIsAdminLoginModalOpen(true)}
         onOpenProfile={() => setIsProfileOpen(true)}
         activeView={activeView}
         setActiveView={(v) => {
@@ -122,6 +125,7 @@ function MainApp() {
           <>
             {/* Hero Campaign */}
             <HeroSection
+              settings={settings}
               onExploreCakes={() => {
                 setActiveView('catalog');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -140,10 +144,10 @@ function MainApp() {
                   <div className="space-y-2">
                     <div className="flex items-center gap-1.5 text-xs font-semibold tracking-widest text-[#895737] uppercase">
                       <Sparkles className="w-3.5 h-3.5 text-[#C59B62]" />
-                      <span>Curated Seasonal Confections</span>
+                      <span>Mavsumiy Saralangan Tortlar</span>
                     </div>
                     <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#2C2420]">
-                      Signature Patisserie Highlights
+                      Semurug Mashhur Tortlar Kolleksiyasi
                     </h2>
                   </div>
 
@@ -154,7 +158,7 @@ function MainApp() {
                     }}
                     className="inline-flex items-center gap-2 text-xs font-semibold text-[#895737] hover:text-[#2C2420] transition-colors whitespace-nowrap self-start sm:self-auto"
                   >
-                    <span>View Entire Catalog ({products.length} Confections)</span>
+                    <span>Barcha Tortlarni Ko'rish ({products.length} ta)</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -169,7 +173,7 @@ function MainApp() {
                 {/* Products 3-Column Grid */}
                 {loading ? (
                   <div className="py-20 text-center text-xs text-[#8C7A70]">
-                    Preparing artisanal display...
+                    Nafis tortlar vitrinasi tayyorlanmoqda...
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -191,13 +195,13 @@ function MainApp() {
                 <div className="p-8 sm:p-12 rounded-3xl bg-[#2C2420] text-[#FAF7F2] relative overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
                   <div className="relative z-10 max-w-xl space-y-4">
                     <span className="text-xs font-semibold tracking-widest text-[#D4A373] uppercase block">
-                      The Custom Atelier Studio
+                      Individual Buyurtmalar Studiyasi
                     </span>
                     <h3 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-white [text-wrap:balance]">
-                      Have a Vision for an Unforgettable Milestone Cake?
+                      Unutilmas Tantana Uchun Maxsus Tort Rejangiz Bormi?
                     </h3>
                     <p className="text-xs sm:text-sm text-[#E8DFD5] leading-relaxed">
-                      Choose your bespoke silhouette, customize sponge infusions, upload reference moodboards, and have your personalized message hand-piped in French calligraphy.
+                      Nafis shakl, boy biskvit va nozik kremlarni tanlang, o'zingiz xohlagan rasm namunasini yuklang va mohir qandolatchilarimizdan shaxsiy tabrik xatini yozdiring.
                     </p>
                     <div className="pt-2">
                       <button
@@ -207,7 +211,7 @@ function MainApp() {
                         }}
                         className="px-6 py-3 bg-[#D4A373] hover:bg-[#C59B62] text-[#2C2420] text-xs font-bold rounded-xl shadow-md transition-all active:scale-95 inline-flex items-center gap-2"
                       >
-                        <span>Open Custom Cake Studio</span>
+                        <span>Maxsus Tort Konstruktori</span>
                         <ArrowRight className="w-4 h-4" />
                       </button>
                     </div>
@@ -226,7 +230,7 @@ function MainApp() {
             </section>
 
             {/* Brand Heritage Section */}
-            <BrandStorySection />
+            <BrandStorySection settings={settings} />
 
             {/* Customer Testimonials & Verified Praise */}
             <CustomerReviewsSection />
@@ -270,7 +274,13 @@ function MainApp() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }
         }}
-        onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenAdmin={() => {
+          if (user?.role === 'admin') {
+            setIsAdminOpen(true);
+          } else {
+            setIsAdminLoginModalOpen(true);
+          }
+        }}
       />
 
       {/* MODALS & OVERLAYS */}
@@ -306,6 +316,10 @@ function MainApp() {
       />
 
       <AuthModal />
+
+      <AdminLoginModal
+        onSuccessOpenDashboard={() => setIsAdminOpen(true)}
+      />
 
       <AdminDashboard
         isOpen={isAdminOpen}

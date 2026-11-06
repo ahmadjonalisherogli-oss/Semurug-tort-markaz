@@ -34,13 +34,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
             <div className="flex items-center gap-2">
               <ShoppingBag className="w-5 h-5 text-[#895737]" />
               <h2 className="font-serif text-lg font-bold text-[#2C2420]">
-                Your Patisserie Bag
+                Sizning Savatingiz
               </h2>
             </div>
             <button
               onClick={() => setIsCartOpen(false)}
               className="p-1.5 rounded-full hover:bg-[#EFE8DE] text-[#5E4D44] hover:text-[#2C2420] transition-colors"
-              aria-label="Close cart drawer"
+              aria-label="Savatni yopish"
             >
               <X className="w-5 h-5" />
             </button>
@@ -53,11 +53,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
                 <Sparkles className="w-3.5 h-3.5 text-[#C59B62]" />
                 {amountUntilFreeDelivery === 0 ? (
                   <span className="font-semibold text-emerald-800">
-                    Complimentary White-Glove Delivery Unlocked!
+                    Bepul ehtiyotkor yetkazib berish faollashdi!
                   </span>
                 ) : (
                   <span>
-                    Add <strong className="tabular-nums text-[#895737]">${amountUntilFreeDelivery}</strong> more for complimentary delivery
+                    Bepul yetkazish uchun yana <strong className="tabular-nums text-[#895737]">${amountUntilFreeDelivery}</strong> lik xarid qiling
                   </span>
                 )}
               </span>
@@ -80,9 +80,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
                 <div className="w-16 h-16 mx-auto rounded-full bg-[#F4EFEA] flex items-center justify-center text-[#8C7A70]">
                   <ShoppingBag className="w-8 h-8 stroke-1" />
                 </div>
-                <h3 className="font-serif text-base font-bold text-[#2C2420]">Your bag is empty</h3>
+                <h3 className="font-serif text-base font-bold text-[#2C2420]">Savatingiz bo'sh</h3>
                 <p className="text-xs text-[#5E4D44] max-w-xs mx-auto">
-                  Explore our handcrafted artisanal cakes and bespoke creations to curate your celebration.
+                  Katalogimizdagi nafis bayram tortlari va mualliflik shirinliklarini tanlang.
                 </p>
               </div>
             ) : (
@@ -106,13 +106,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
                         <button
                           onClick={() => removeFromCart(item.id)}
                           className="text-[#8C7A70] hover:text-rose-700 transition-colors p-0.5"
-                          title="Remove item"
+                          title="O'chirish"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
                       <div className="text-[11px] text-[#8C7A70] mt-0.5">
-                        {item.size.label} · {item.size.weight_grams}g
+                        {item.size.label} · {item.size.weight_grams} g
                       </div>
                     </div>
 
@@ -150,21 +150,21 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
             <div className="p-6 border-t border-[#E8DFD5] bg-[#FAF7F2] space-y-3">
               <div className="space-y-1.5 text-xs text-[#5E4D44]">
                 <div className="flex justify-between">
-                  <span>Subtotal:</span>
+                  <span>Oraliq summa:</span>
                   <span className="font-bold text-[#2C2420] tabular-nums font-mono">${subtotal}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>White-Glove Hand Delivery:</span>
+                  <span>Ehtiyotkor yetkazib berish:</span>
                   <span className="tabular-nums font-mono">
                     {deliveryFee === 0 ? (
-                      <span className="text-emerald-800 font-semibold">Complimentary ($0)</span>
+                      <span className="text-emerald-800 font-semibold">Bepul ($0)</span>
                     ) : (
                       `$${deliveryFee}`
                     )}
                   </span>
                 </div>
                 <div className="flex justify-between text-base font-serif font-bold text-[#2C2420] pt-2 border-t border-[#E8DFD5]">
-                  <span>Total Amount:</span>
+                  <span>Jami to'lov:</span>
                   <span className="tabular-nums">${total}</span>
                 </div>
               </div>
@@ -176,7 +176,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
                 }}
                 className="w-full py-3.5 px-6 bg-[#2C2420] hover:bg-[#895737] text-white text-xs font-semibold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-95"
               >
-                <span>Proceed to Checkout</span>
+                <span>Buyurtmani Rasmiylashtirish</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

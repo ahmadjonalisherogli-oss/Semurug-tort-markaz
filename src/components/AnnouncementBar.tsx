@@ -17,13 +17,13 @@ export const AnnouncementBar: React.FC<Props> = ({ settings }) => {
         <div className="flex-1 flex items-center justify-center gap-2 text-center text-[#E8DFD5]">
           <Sparkles className="w-3.5 h-3.5 text-[#D4A373] shrink-0" />
           <span className="font-medium tracking-wide">
-            {settings.banner_text || 'Complimentary white-glove hand delivery on luxury orders above $80 · Same-day pre-orders before 2 PM'}
+            {settings.banner_text || '$80 dan yuqori premium buyurtmalar uchun maxsus kuryer orqali yetkazib berish bepul · Soat 14:00 gacha tezkor buyurtmalar'}
           </span>
         </div>
         <button
           onClick={() => setDismissed(true)}
           className="p-1 hover:text-[#D4A373] transition-colors rounded"
-          aria-label="Dismiss banner"
+          aria-label="E'lonni yopish"
         >
           <X className="w-3.5 h-3.5" />
         </button>

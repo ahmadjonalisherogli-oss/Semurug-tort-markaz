@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, MessageSquare, Instagram } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send, MessageSquare, Instagram, CheckCircle2 } from 'lucide-react';
 import { ShopSettings } from '../types.js';
+import { api } from '../services/api.js';
 
 interface ContactSectionProps {
   settings?: ShopSettings;
@@ -12,10 +13,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ settings }) => {
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (!name || !phone || !message) return;
+    setLoading(true);
+    try {
+      await api.createInquiry({ name, phone, email, message });
+      setSubmitted(true);
+      setName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
+    } catch (err: any) {
+      alert(`Xabar yuborishda xatolik: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -25,13 +40,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ settings }) => {
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <span className="text-xs font-semibold tracking-widest text-[#895737] uppercase block">
-            Concierge & Atelier Location
+            Aloqa & Qandolat Markazi
           </span>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#2C2420]">
-            Visit or Inquire with Our Pâtissiers
+            Tashrif Buyuring Yoki Qandolatchilarimiz Bilan Bog'laning
           </h2>
           <p className="text-xs sm:text-sm text-[#5E4D44] leading-relaxed">
-            Reach out for bespoke wedding consults, corporate gifting inquiries, or same-day boutique availability.
+            To'y tortlari konsultatsiyasi, korporativ buyurtmalar yoki kunlik assortiment bo'yicha biz bilan bog'laning.
           </p>
         </div>
 
@@ -41,30 +56,30 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ settings }) => {
           <div className="lg:col-span-5 space-y-6">
             <div className="p-6 bg-white rounded-3xl border border-[#E8DFD5] shadow-sm space-y-6">
               <h3 className="font-serif text-lg font-bold text-[#2C2420]">
-                Mayfair Flagship Boutique
+                Semurug Markaziy Qandolatxonasi
               </h3>
 
               <div className="space-y-4 text-xs text-[#5E4D44]">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-[#895737] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-[#2C2420] block">Atelier Address</strong>
-                    <span>{settings?.address || '77 Royal Pastry Boulevard, Boutique 4, Mayfair District'}</span>
+                    <strong className="text-[#2C2420] block">Manzil</strong>
+                    <span>{settings?.address || 'Toshkent sh., Mirobod tumani, Royal Pastry xiyoboni, 77-uy'}</span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <Phone className="w-4 h-4 text-[#895737] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-[#2C2420] block">Concierge Telephone</strong>
-                    <span>{settings?.phone || '+1 (555) 900-2253'}</span>
+                    <strong className="text-[#2C2420] block">Aloqa Telefoni</strong>
+                    <span>{settings?.phone || '+998 (71) 200-1122'}</span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <Mail className="w-4 h-4 text-[#895737] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-[#2C2420] block">Direct Email</strong>
+                    <strong className="text-[#2C2420] block">Elektron Pochta</strong>
                     <span>{settings?.email || 'concierge@semurugcakes.com'}</span>
                   </div>
                 </div>
@@ -72,8 +87,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ settings }) => {
                 <div className="flex items-start gap-3">
                   <Clock className="w-4 h-4 text-[#895737] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-[#2C2420] block">Boutique & Delivery Hours</strong>
-                    <span>{settings?.working_hours || 'Monday – Sunday: 08:00 AM – 21:00 PM'}</span>
+                    <strong className="text-[#2C2420] block">Ish Vaqti & Yetkazib Berish</strong>
+                    <span>{settings?.working_hours || 'Dushanba – Yakshanba: 08:00 – 21:00'}</span>
                   </div>
                 </div>
               </div>
@@ -87,7 +102,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ settings }) => {
                   className="px-4 py-2 bg-[#2C2420] hover:bg-[#895737] text-white rounded-xl text-xs font-semibold flex items-center gap-2 transition-colors"
                 >
                   <MessageSquare className="w-3.5 h-3.5 text-[#D4A373]" />
-                  <span>Telegram Concierge Bot</span>
+                  <span>Telegram Bot Orqali Buyurtma</span>
                 </a>
 
                 <a
@@ -97,7 +112,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ settings }) => {
                   className="px-4 py-2 bg-white hover:bg-[#EFE8DE] border border-[#E8DFD5] text-[#2C2420] rounded-xl text-xs font-semibold flex items-center gap-2 transition-colors"
                 >
                   <Instagram className="w-3.5 h-3.5 text-[#895737]" />
-                  <span>Instagram Atelier</span>
+                  <span>Instagram Sahifamiz</span>
                 </a>
               </div>
             </div>
@@ -107,9 +122,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ settings }) => {
               <div className="absolute inset-0 bg-[#E8DFD5]/40 opacity-80" />
               <div className="relative z-10 space-y-1 text-xs text-[#2C2420]">
                 <MapPin className="w-8 h-8 text-[#895737] mx-auto animate-bounce" />
-                <h4 className="font-serif font-bold text-sm">Semurug Mayfair Atelier Location</h4>
+                <h4 className="font-serif font-bold text-sm">Semurug Qandolat Markazi</h4>
                 <p className="text-[11px] text-[#5E4D44] max-w-xs">
-                  Valet parking available for cake collection. Located beside Royal Botanical Gardens.
+                  Tortlarni olib ketish uchun qulay avtoturargoh mavjud.
                 </p>
               </div>
             </div>
@@ -119,85 +134,86 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ settings }) => {
           <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-[#E8DFD5] shadow-sm space-y-6">
             <div>
               <h3 className="font-serif text-xl font-bold text-[#2C2420]">
-                Send an Inquiry to Our Head Pâtissier
+                Bosh Qandolatchimizga Xabar Yuboring
               </h3>
               <p className="text-xs text-[#5E4D44] mt-1">
-                We will reply with tasting dates, availability, and personalized quotes within 2 business hours.
+                Biz 2 ish soati ichida degustatsiya sanalari va buyurtma tafsilotlari bo'yicha bog'lanamiz.
               </p>
             </div>
 
             {submitted ? (
               <div className="p-6 bg-emerald-50 rounded-2xl border border-emerald-200 text-center space-y-3">
                 <span className="text-emerald-800 font-serif font-bold text-base block">
-                  Message Transmitted with Distinction
+                  Xabaringiz Muvaffaqiyatli Yuborildi
                 </span>
                 <p className="text-xs text-emerald-700">
-                  Thank you, {name || 'esteemed guest'}. Our lead pastry chef will reach you shortly at {phone || email || 'your contact address'}.
+                  Rahmat, hurmatli {name || 'mehmon'}. Bosh qandolatchimiz tez orada {phone || email || 'ko\'rsatilgan raqam'} orqali siz bilan bog'lanadi.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
                   className="text-xs font-semibold text-emerald-900 underline"
                 >
-                  Send another inquiry
+                  Yana boshqa xabar yuborish
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 text-xs">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="font-medium text-[#5E4D44] block mb-1">Your Full Name *</label>
+                    <label className="font-medium text-[#5E4D44] block mb-1">To'liq Ismingiz *</label>
                     <input
                       type="text"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Lady Genevieve"
+                      placeholder="Malika Yusupova"
                       className="w-full px-3.5 py-2.5 bg-[#F4EFEA] border border-[#E8DFD5] rounded-xl text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                     />
                   </div>
 
                   <div>
-                    <label className="font-medium text-[#5E4D44] block mb-1">Telephone Contact *</label>
+                    <label className="font-medium text-[#5E4D44] block mb-1">Telefon Raqamingiz *</label>
                     <input
                       type="tel"
                       required
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+1 (555) 234-8901"
+                      placeholder="+998 (90) 123-4567"
                       className="w-full px-3.5 py-2.5 bg-[#F4EFEA] border border-[#E8DFD5] rounded-xl text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="font-medium text-[#5E4D44] block mb-1">Email Address</label>
+                  <label className="font-medium text-[#5E4D44] block mb-1">Elektron Pochta</label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="genevieve@luxury.com"
+                    placeholder="malika@domain.uz"
                     className="w-full px-3.5 py-2.5 bg-[#F4EFEA] border border-[#E8DFD5] rounded-xl text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                   />
                 </div>
 
                 <div>
-                  <label className="font-medium text-[#5E4D44] block mb-1">Inquiry / Celebration Details *</label>
+                  <label className="font-medium text-[#5E4D44] block mb-1">Tantana Tafsilotlari / Istaklaringiz *</label>
                   <textarea
                     required
                     rows={4}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Tell us about your celebration date, guest count, flavor preferences, or custom requirements..."
+                    placeholder="Tantana sanasi, mehmonlar soni, yoqqan ta'mlar yoki maxsus talablaringiz haqida yozing..."
                     className="w-full px-3.5 py-2.5 bg-[#F4EFEA] border border-[#E8DFD5] rounded-xl text-[#2C2420] focus:outline-none focus:ring-1 focus:ring-[#895737]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="py-3 px-6 bg-[#2C2420] hover:bg-[#895737] text-white font-semibold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-95"
+                  disabled={loading}
+                  className="py-3 px-6 bg-[#2C2420] hover:bg-[#895737] text-white font-semibold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
                 >
                   <Send className="w-3.5 h-3.5" />
-                  <span>Transmit Inquiry</span>
+                  <span>{loading ? 'Yuborilmoqda...' : 'Xabarni Yuborish'}</span>
                 </button>
               </form>
             )}
